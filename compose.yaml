@@ -1,0 +1,22 @@
+services:
+  rag-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: capstone-rag-api:local
+    ports:
+      - "8000:8000"
+    environment:
+      RAG_LLM_API_KEY: ${RAG_LLM_API_KEY:?Set RAG_LLM_API_KEY in .env or your shell}
+      RAG_LLM_BASE_URL: ${RAG_LLM_BASE_URL:-https://openrouter.ai/api/v1}
+      RAG_LLM_MODEL: ${RAG_LLM_MODEL:-deepseek/deepseek-v3.2}
+      RAG_LLM_API_MODE: ${RAG_LLM_API_MODE:-chat_completions}
+      RAG_LLM_MAX_RETRIES: ${RAG_LLM_MAX_RETRIES:-2}
+      RAG_LLM_RETRY_BACKOFF_SECONDS: ${RAG_LLM_RETRY_BACKOFF_SECONDS:-0.5}
+    volumes:
+      - model-cache:/app/data/models
+    init: true
+    restart: unless-stopped
+
+volumes:
+  model-cache:

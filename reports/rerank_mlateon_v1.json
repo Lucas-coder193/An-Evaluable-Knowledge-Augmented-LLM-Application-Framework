@@ -1,0 +1,65 @@
+{
+  "questions_total": 25,
+  "answerable_questions": 23,
+  "no_answer_questions": 2,
+  "mrr@5": 1.0,
+  "ranking_config": {
+    "retriever": "two_stage_rerank",
+    "candidate_k": 20,
+    "candidate_retriever": {
+      "retriever": "hybrid_weighted",
+      "candidate_k": 20,
+      "dense_weight": 0.5,
+      "sparse_weight": 0.5,
+      "normalization": "per-query min-max over each returned candidate list; missing score=0",
+      "fusion_formula": "(1-dense_weight)*sparse_norm + dense_weight*dense_norm",
+      "components": {
+        "sparse": {
+          "retriever": "bm25",
+          "bm25_k1": 1.5,
+          "bm25_b": 0.75,
+          "section_boost": 0.0,
+          "source_title_boost": 0.0
+        },
+        "dense": {
+          "retriever": "dense_cosine",
+          "embedding_model": "BAAI/bge-small-zh-v1.5",
+          "embedding_library": "fastembed",
+          "embedding_library_version": "0.9.0",
+          "execution_device": "CPU",
+          "embedding_dimension": 512,
+          "document_text_fields": [
+            "section_title",
+            "text"
+          ],
+          "similarity": "cosine",
+          "cache_schema_version": 1
+        }
+      }
+    },
+    "reranker": {
+      "reranker": "late_interaction_maxsim",
+      "model": "lightonai/mLateOn",
+      "library": "fastembed",
+      "library_version": "0.9.0",
+      "similarity": "sum_of_query_token_max_cosine"
+    }
+  },
+  "evaluation_scope": "Small project-authored development set over a 19-chunk pilot corpus; pipeline validation only, not an external benchmark or generalization claim.",
+  "note": "Retrieval metrics include only questions with labeled evidence; no-answer cases are reserved for later refusal evaluation.",
+  "top1_misses": [],
+  "recall@1": 1.0,
+  "recall@3": 1.0,
+  "recall@5": 1.0,
+  "ndcg@1": 1.0,
+  "ndcg@3": 1.0,
+  "ndcg@5": 1.0,
+  "runtime": {
+    "wall_clock_seconds": 42.37,
+    "measured_command": "PowerShell Measure-Command around cached full evaluation",
+    "execution_device": "CPU",
+    "model_cache_mib": 1222.2,
+    "candidate_count": 20,
+    "answerable_queries": 23
+  }
+}

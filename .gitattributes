@@ -1,0 +1,2 @@
+# Keep the frozen corpus bytes consistent with the recorded SHA-256 hashes.
+data/raw/fastapi/frozen-v2/** -text

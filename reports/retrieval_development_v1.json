@@ -1,0 +1,205 @@
+{
+  "questions_total": 105,
+  "answerable_questions": 63,
+  "no_answer_questions": 42,
+  "mrr@5": 0.870899470899471,
+  "ranking_config": {
+    "retriever": "bm25",
+    "bm25_k1": 1.5,
+    "bm25_b": 0.75,
+    "section_boost": 0.0,
+    "source_title_boost": 0.0
+  },
+  "evaluation_scope": "Small project-authored development set over a 19-chunk pilot corpus; pipeline validation only, not an external benchmark or generalization claim.",
+  "note": "Retrieval metrics include only questions with labeled evidence; no-answer cases are reserved for later refusal evaluation.",
+  "top1_misses": [
+    {
+      "id": "frozen-rag-01-1",
+      "question": "FastAPI 的后台任务适合处理什么工作？",
+      "expected_evidence": [
+        "background-tasks#返回后执行任务"
+      ],
+      "top_results": [
+        "background-tasks#任务范围",
+        "background-tasks#返回后执行任务",
+        "handling-errors#自定义异常处理",
+        "middleware#请求和响应的公共处理",
+        "background-tasks#声明和添加任务"
+      ]
+    },
+    {
+      "id": "frozen-rag-02-3",
+      "question": "FastAPI 的后台任务函数支持哪些形式，何时执行？",
+      "expected_evidence": [
+        "background-tasks#声明和添加任务"
+      ],
+      "top_results": [
+        "background-tasks#返回后执行任务",
+        "background-tasks#任务范围",
+        "background-tasks#声明和添加任务",
+        "request-body#请求体与-http-方法",
+        "query-parameters#类型转换与校验"
+      ]
+    },
+    {
+      "id": "frozen-rag-13-1",
+      "question": "FastAPI 中的‘路径’和‘操作’分别指什么？",
+      "expected_evidence": [
+        "first-steps#路径操作"
+      ],
+      "top_results": [
+        "query-parameters#默认值与可选参数",
+        "body-nested-models#多层请求体",
+        "query-parameters#必填查询参数",
+        "query-parameters#类型转换与校验",
+        "first-steps#最小应用"
+      ]
+    },
+    {
+      "id": "frozen-rag-13-2",
+      "question": "路径操作装饰器如何把请求映射到 Python 函数？",
+      "expected_evidence": [
+        "first-steps#路径操作"
+      ],
+      "top_results": [
+        "first-steps#最小应用",
+        "response-status-code#设置响应状态码",
+        "first-steps#路径操作",
+        "request-body#模型字段是否必填",
+        "handling-errors#抛出异常而不是返回异常"
+      ]
+    },
+    {
+      "id": "frozen-rag-16-3",
+      "question": "HTTPException.detail 有什么序列化要求？",
+      "expected_evidence": [
+        "handling-errors#自定义错误详情"
+      ],
+      "top_results": [
+        "handling-errors#httpexception",
+        "response-model#输出过滤",
+        "handling-errors#自定义错误详情",
+        "security-first-steps#bearer-token-入门",
+        "handling-errors#抛出异常而不是返回异常"
+      ]
+    },
+    {
+      "id": "frozen-rag-18-2",
+      "question": "中间件在 FastAPI 请求—响应流程中什么时候运行？",
+      "expected_evidence": [
+        "middleware#请求和响应的公共处理"
+      ],
+      "top_results": [
+        "background-tasks#声明和添加任务",
+        "middleware#请求和响应的公共处理",
+        "middleware#使用边界",
+        "background-tasks#返回后执行任务",
+        "request-body#请求体与-http-方法"
+      ]
+    },
+    {
+      "id": "frozen-rag-20-2",
+      "question": "FastAPI 如何区分路径参数和 query 参数？",
+      "expected_evidence": [
+        "query-parameters#参数自动识别"
+      ],
+      "top_results": [
+        "body-nested-models#多层请求体",
+        "query-parameters#必填查询参数",
+        "query-parameters#参数自动识别",
+        "dependencies#使用-depends",
+        "response-model#与类型标注的关系"
+      ]
+    },
+    {
+      "id": "frozen-rag-21-2",
+      "question": "如何让 query 参数可以省略？",
+      "expected_evidence": [
+        "query-parameters#默认值与可选参数"
+      ],
+      "top_results": [
+        "query-parameters#必填查询参数",
+        "query-parameters#默认值与可选参数",
+        "background-tasks#声明和添加任务",
+        "dependencies#使用-depends",
+        "body-nested-models#多层请求体"
+      ]
+    },
+    {
+      "id": "frozen-rag-24-3",
+      "question": "Pydantic 请求体模型的字段可以使用什么类型？",
+      "expected_evidence": [
+        "request-body#使用-pydantic-声明请求体"
+      ],
+      "top_results": [
+        "body-nested-models#列表字段",
+        "request-body#使用-pydantic-声明请求体",
+        "request-body#模型字段是否必填",
+        "request-body#请求体解析与校验",
+        "body-nested-models#多层请求体"
+      ]
+    },
+    {
+      "id": "frozen-combined-09",
+      "question": "请查阅依赖安全证据，说明依赖可以集中处理哪些安全逻辑；然后调用 calculator 计算 50 % 7，分别给出文档答案和计算结果。",
+      "expected_evidence": [
+        "dependencies#依赖与安全"
+      ],
+      "top_results": [
+        "dependencies#依赖注入的作用",
+        "background-tasks#声明和添加任务",
+        "dependencies#使用-depends",
+        "middleware#请求和响应的公共处理",
+        "dependencies#依赖与安全"
+      ]
+    },
+    {
+      "id": "frozen-extra-combined-02",
+      "question": "请检索 FastAPI 完整认证边界的证据，说明读取 token 是否等于完成认证；然后调用 calculator 计算 81 / 9。",
+      "expected_evidence": [
+        "security-first-steps#这一步不等于完整认证"
+      ],
+      "top_results": [
+        "background-tasks#声明和添加任务",
+        "security-first-steps#这一步不等于完整认证",
+        "middleware#请求和响应的公共处理",
+        "body-nested-models#多层请求体",
+        "security-first-steps#bearer-token-入门"
+      ]
+    },
+    {
+      "id": "frozen-extra-combined-04",
+      "question": "请检索 HTTP 状态码证据，说明创建资源通常使用什么状态码；然后调用 calculator 计算 144 / 12。",
+      "expected_evidence": [
+        "response-status-code#常见状态码"
+      ],
+      "top_results": [
+        "response-status-code#设置响应状态码",
+        "background-tasks#声明和添加任务",
+        "response-status-code#常见状态码",
+        "request-body#使用-pydantic-声明请求体",
+        "first-steps#路径操作"
+      ]
+    },
+    {
+      "id": "frozen-extra-combined-06",
+      "question": "请检索 query 默认值证据，说明省略 limit 时如何取值；然后调用 calculator 计算 5 * 8。",
+      "expected_evidence": [
+        "query-parameters#默认值与可选参数"
+      ],
+      "top_results": [
+        "query-parameters#必填查询参数",
+        "query-parameters#默认值与可选参数",
+        "background-tasks#声明和添加任务",
+        "request-body#模型字段是否必填",
+        "query-parameters#参数自动识别"
+      ]
+    }
+  ],
+  "recall@1": 0.7936507936507936,
+  "recall@3": 0.9682539682539683,
+  "recall@5": 0.9841269841269841,
+  "ndcg@1": 0.7936507936507936,
+  "ndcg@3": 0.8934218812925198,
+  "ndcg@5": 0.8995624020422743
+}

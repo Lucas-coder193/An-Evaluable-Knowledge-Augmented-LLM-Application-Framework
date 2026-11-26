@@ -1,0 +1,118 @@
+{
+  "dataset_id": "fastapi-curated-notes-frozen-v2",
+  "description": "Frozen project-authored Chinese summaries of selected official FastAPI tutorial topics. Notes are paraphrased and are not a verbatim mirror of upstream pages.",
+  "snapshot_date": "2026-10-26",
+  "upstream_project": "FastAPI",
+  "upstream_repository": "https://github.com/fastapi/fastapi",
+  "upstream_license": "MIT (repository license; consult the upstream LICENSE for reuse terms)",
+  "upstream_license_url": "https://github.com/fastapi/fastapi/blob/master/LICENSE",
+  "manifest_sha256": "221d0d75106ce351e8d5f0fb3b1e1dadedd9d3fe14eb672688256d383a32256a",
+  "chunking": {
+    "algorithm": "heading-aware-overlap-v1",
+    "chunk_size": 800,
+    "overlap": 120
+  },
+  "documents_count": 11,
+  "chunks_count": 35,
+  "documents": [
+    {
+      "path": "background-tasks.md",
+      "doc_id": "background-tasks",
+      "title": "Background Tasks",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/background-tasks/",
+      "sha256": "3ebae91b7cde64f28f046899b7f01c17236e12c328290b0cb878a0ebb3227853",
+      "characters": 298,
+      "chunks": 3
+    },
+    {
+      "path": "body-nested-models.md",
+      "doc_id": "body-nested-models",
+      "title": "Body Nested Models",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/body-nested-models/",
+      "sha256": "fae7c439a20422a31e92d99b2eddeef9327aa21899a3e820ca1242a7dcec0d9f",
+      "characters": 369,
+      "chunks": 3
+    },
+    {
+      "path": "dependencies.md",
+      "doc_id": "dependencies",
+      "title": "Dependencies",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/dependencies/",
+      "sha256": "9ce56af22b67e2725a3a8c5605d1ca118bc3f17d4098b9ff2a3f7f32bf0fad5d",
+      "characters": 339,
+      "chunks": 3
+    },
+    {
+      "path": "first-steps.md",
+      "doc_id": "first-steps",
+      "title": "First Steps",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/first-steps/",
+      "sha256": "22723ff507fa5016a658ce3b590a8db55aabe1a0d7ce0634fdc62f9ac124f289",
+      "characters": 644,
+      "chunks": 4
+    },
+    {
+      "path": "handling-errors.md",
+      "doc_id": "handling-errors",
+      "title": "Handling Errors",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/handling-errors/",
+      "sha256": "a4334a7fe0860cf314c2a7444ca078b65219d6545d4637aa1db9653180a912bb",
+      "characters": 555,
+      "chunks": 4
+    },
+    {
+      "path": "middleware.md",
+      "doc_id": "middleware",
+      "title": "Middleware",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/middleware/",
+      "sha256": "905ae757e894dc83db0fa34962dfb78b9ef23be788816c2bc220a621f9aaceff",
+      "characters": 204,
+      "chunks": 2
+    },
+    {
+      "path": "query-parameters.md",
+      "doc_id": "query-parameters",
+      "title": "Query Parameters",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/query-params/",
+      "sha256": "363df0a2a2585538478c857f442e7e039cbe1d3eac73c1c6c96d53a5d7b77b7c",
+      "characters": 591,
+      "chunks": 4
+    },
+    {
+      "path": "request-body.md",
+      "doc_id": "request-body",
+      "title": "Request Body",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/body/",
+      "sha256": "1be1f289bcd21229c7cdc9618394c94ff497b7b29350647b5fda887bca715427",
+      "characters": 550,
+      "chunks": 4
+    },
+    {
+      "path": "response-model.md",
+      "doc_id": "response-model",
+      "title": "Response Model",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/response-model/",
+      "sha256": "9eb79604ddb6dfcc462870b32e94c2251d741b1acdecf48b518ea58824877d45",
+      "characters": 308,
+      "chunks": 3
+    },
+    {
+      "path": "response-status-code.md",
+      "doc_id": "response-status-code",
+      "title": "Response Status Code",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/response-status-code/",
+      "sha256": "04db566673073de4eead668c6068b590e33dc0777ce56533c9484cd9f018498c",
+      "characters": 402,
+      "chunks": 3
+    },
+    {
+      "path": "security-first-steps.md",
+      "doc_id": "security-first-steps",
+      "title": "Security First Steps",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/security/first-steps/",
+      "sha256": "54f3f96bd8145b5089bc78c3ac5f107853ff1b7b16b65d9c88c433a1243edcbc",
+      "characters": 260,
+      "chunks": 2
+    }
+  ]
+}

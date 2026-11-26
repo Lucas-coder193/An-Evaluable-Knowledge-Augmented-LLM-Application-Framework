@@ -1,0 +1,61 @@
+{
+  "questions_total": 25,
+  "answerable_questions": 23,
+  "no_answer_questions": 2,
+  "mrr@5": 0.9782608695652174,
+  "ranking_config": {
+    "retriever": "hybrid_weighted",
+    "candidate_k": 20,
+    "dense_weight": 0.5,
+    "sparse_weight": 0.5,
+    "normalization": "per-query min-max over each returned candidate list; missing score=0",
+    "fusion_formula": "(1-dense_weight)*sparse_norm + dense_weight*dense_norm",
+    "components": {
+      "sparse": {
+        "retriever": "bm25",
+        "bm25_k1": 1.5,
+        "bm25_b": 0.75,
+        "section_boost": 0.0,
+        "source_title_boost": 0.0
+      },
+      "dense": {
+        "retriever": "dense_cosine",
+        "embedding_model": "BAAI/bge-small-zh-v1.5",
+        "embedding_library": "fastembed",
+        "embedding_library_version": "0.9.0",
+        "execution_device": "CPU",
+        "embedding_dimension": 512,
+        "document_text_fields": [
+          "section_title",
+          "text"
+        ],
+        "similarity": "cosine",
+        "cache_schema_version": 1
+      }
+    }
+  },
+  "evaluation_scope": "Small project-authored development set over a 19-chunk pilot corpus; pipeline validation only, not an external benchmark or generalization claim.",
+  "note": "Retrieval metrics include only questions with labeled evidence; no-answer cases are reserved for later refusal evaluation.",
+  "top1_misses": [
+    {
+      "id": "q015",
+      "question": "GET 请求带 request body 是推荐做法吗？",
+      "expected_evidence": [
+        "request-body#请求体与-http-方法"
+      ],
+      "top_results": [
+        "request-body#使用-pydantic-声明请求体",
+        "request-body#请求体与-http-方法",
+        "first-steps#最小应用",
+        "handling-errors#httpexception",
+        "request-body#请求体解析与校验"
+      ]
+    }
+  ],
+  "recall@1": 0.9565217391304348,
+  "recall@3": 1.0,
+  "recall@5": 1.0,
+  "ndcg@1": 0.9565217391304348,
+  "ndcg@3": 0.9839534675465851,
+  "ndcg@5": 0.9839534675465851
+}

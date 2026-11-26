@@ -1,0 +1,51 @@
+{
+  "questions_total": 25,
+  "answerable_questions": 23,
+  "no_answer_questions": 2,
+  "mrr@5": 0.9565217391304348,
+  "ranking_config": {
+    "retriever": "bm25",
+    "bm25_k1": 1.5,
+    "bm25_b": 0.75,
+    "section_boost": 0.0,
+    "source_title_boost": 0.0
+  },
+  "evaluation_scope": "Small project-authored development set over a 19-chunk pilot corpus; pipeline validation only, not an external benchmark or generalization claim.",
+  "note": "Retrieval metrics include only questions with labeled evidence; no-answer cases are reserved for later refusal evaluation.",
+  "top1_misses": [
+    {
+      "id": "q004",
+      "question": "OpenAPI schema 能描述哪些 API 信息，还能拿来做什么？",
+      "expected_evidence": [
+        "first-steps#openapi-的用途"
+      ],
+      "top_results": [
+        "first-steps#自动交互式文档",
+        "first-steps#openapi-的用途",
+        "response-status-code#设置响应状态码",
+        "request-body#模型字段是否必填",
+        "request-body#使用-pydantic-声明请求体"
+      ]
+    },
+    {
+      "id": "q015",
+      "question": "GET 请求带 request body 是推荐做法吗？",
+      "expected_evidence": [
+        "request-body#请求体与-http-方法"
+      ],
+      "top_results": [
+        "request-body#使用-pydantic-声明请求体",
+        "request-body#请求体与-http-方法",
+        "first-steps#路径操作",
+        "response-status-code#常见状态码",
+        "first-steps#最小应用"
+      ]
+    }
+  ],
+  "recall@1": 0.9130434782608695,
+  "recall@3": 1.0,
+  "recall@5": 1.0,
+  "ndcg@1": 0.9130434782608695,
+  "ndcg@3": 0.9679069350931703,
+  "ndcg@5": 0.9679069350931703
+}

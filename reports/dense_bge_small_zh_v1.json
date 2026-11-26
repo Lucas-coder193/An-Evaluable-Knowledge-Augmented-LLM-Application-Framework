@@ -1,0 +1,44 @@
+{
+  "questions_total": 25,
+  "answerable_questions": 23,
+  "no_answer_questions": 2,
+  "mrr@5": 0.9652173913043478,
+  "ranking_config": {
+    "retriever": "dense_cosine",
+    "embedding_model": "BAAI/bge-small-zh-v1.5",
+    "embedding_library": "fastembed",
+    "embedding_library_version": "0.9.0",
+    "execution_device": "CPU",
+    "embedding_dimension": 512,
+    "document_text_fields": [
+      "section_title",
+      "text"
+    ],
+    "similarity": "cosine",
+    "cache_schema_version": 1
+  },
+  "evaluation_scope": "Small project-authored development set over a 19-chunk pilot corpus; pipeline validation only, not an external benchmark or generalization claim.",
+  "note": "Retrieval metrics include only questions with labeled evidence; no-answer cases are reserved for later refusal evaluation.",
+  "top1_misses": [
+    {
+      "id": "q023",
+      "question": "HTTP 204 No Content 的响应 body 应该包含内容吗？",
+      "expected_evidence": [
+        "response-status-code#常见状态码"
+      ],
+      "top_results": [
+        "first-steps#最小应用",
+        "request-body#使用-pydantic-声明请求体",
+        "response-status-code#设置响应状态码",
+        "request-body#请求体与-http-方法",
+        "response-status-code#常见状态码"
+      ]
+    }
+  ],
+  "recall@1": 0.9565217391304348,
+  "recall@3": 0.9565217391304348,
+  "recall@5": 1.0,
+  "ndcg@1": 0.9565217391304348,
+  "ndcg@3": 0.9565217391304348,
+  "ndcg@5": 0.9733414264015018
+}

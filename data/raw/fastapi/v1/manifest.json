@@ -1,0 +1,16 @@
+{
+  "dataset_id": "fastapi-curated-notes-v1",
+  "description": "Project-authored concise Chinese notes based on selected official FastAPI tutorial pages. These are a pilot corpus, not a verbatim mirror of the upstream documentation.",
+  "snapshot_date": "2026-10-10",
+  "upstream_project": "FastAPI",
+  "upstream_repository": "https://github.com/fastapi/fastapi",
+  "upstream_license": "MIT (repository license; consult the upstream LICENSE for reuse terms)",
+  "upstream_license_url": "https://github.com/fastapi/fastapi/blob/master/LICENSE",
+  "documents": [
+    {"path": "first-steps.md", "doc_id": "first-steps", "title": "First Steps", "source_url": "https://fastapi.tiangolo.com/tutorial/first-steps/"},
+    {"path": "query-parameters.md", "doc_id": "query-parameters", "title": "Query Parameters", "source_url": "https://fastapi.tiangolo.com/tutorial/query-params/"},
+    {"path": "request-body.md", "doc_id": "request-body", "title": "Request Body", "source_url": "https://fastapi.tiangolo.com/tutorial/body/"},
+    {"path": "handling-errors.md", "doc_id": "handling-errors", "title": "Handling Errors", "source_url": "https://fastapi.tiangolo.com/tutorial/handling-errors/"},
+    {"path": "response-status-code.md", "doc_id": "response-status-code", "title": "Response Status Code", "source_url": "https://fastapi.tiangolo.com/tutorial/response-status-code/"}
+  ]
+}

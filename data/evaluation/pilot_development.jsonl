@@ -1,0 +1,25 @@
+{"id":"q001","question":"FastAPI 最简单的应用如何创建 app 实例并定义 GET 路由？","expected_evidence":["first-steps#最小应用"],"category":"application_setup"}
+{"id":"q002","question":"启动 FastAPI 后，在哪里查看 Swagger UI 交互式接口文档？","expected_evidence":["first-steps#自动交互式文档"],"category":"api_docs"}
+{"id":"q003","question":"FastAPI 默认在哪个地址生成原始 OpenAPI JSON schema？","expected_evidence":["first-steps#自动交互式文档"],"category":"api_docs"}
+{"id":"q004","question":"OpenAPI schema 能描述哪些 API 信息，还能拿来做什么？","expected_evidence":["first-steps#openapi-的用途"],"category":"api_docs"}
+{"id":"q005","question":"FastAPI 的路径操作装饰器把什么关联到对应函数？","expected_evidence":["first-steps#路径操作"],"category":"routing"}
+{"id":"q006","question":"路径函数里不属于 URL 路径的参数会被 FastAPI 当作什么？","expected_evidence":["query-parameters#参数自动识别"],"category":"query_parameter"}
+{"id":"q007","question":"URL 的 query string 从哪里开始，多个 query 参数如何分开？","expected_evidence":["query-parameters#参数自动识别"],"category":"query_parameter"}
+{"id":"q008","question":"skip=20 但 URL 没传 limit 时，默认 limit=10 会得到多少？","expected_evidence":["query-parameters#默认值与可选参数"],"category":"query_parameter"}
+{"id":"q009","question":"要让一个查询参数可以不传，参数默认值怎么设置？","expected_evidence":["query-parameters#默认值与可选参数"],"category":"query_parameter"}
+{"id":"q010","question":"声明为 bool 的 short query 参数传 short=yes 会如何转换？","expected_evidence":["query-parameters#类型转换与校验"],"category":"validation"}
+{"id":"q011","question":"如果一个非路径参数没有设置默认值，它是必填的吗？","expected_evidence":["query-parameters#必填查询参数"],"category":"query_parameter"}
+{"id":"q012","question":"FastAPI 通常用什么方式声明 JSON request body 的数据结构？","expected_evidence":["request-body#使用-pydantic-声明请求体"],"category":"request_body"}
+{"id":"q013","question":"Pydantic 模型字段设置了默认值后，客户端可以省略这个字段吗？","expected_evidence":["request-body#模型字段是否必填"],"category":"request_body"}
+{"id":"q014","question":"请求体模型类型声明后，FastAPI 会对 JSON 做哪些处理？","expected_evidence":["request-body#请求体解析与校验"],"category":"validation"}
+{"id":"q015","question":"GET 请求带 request body 是推荐做法吗？","expected_evidence":["request-body#请求体与-http-方法"],"category":"request_body"}
+{"id":"q016","question":"FastAPI 查不到 item 时，怎么抛出 404 并给客户端错误详情？","expected_evidence":["handling-errors#httpexception"],"category":"error_handling"}
+{"id":"q017","question":"HTTPException 在 FastAPI 路径操作中应该 return 还是 raise？","expected_evidence":["handling-errors#抛出异常而不是返回异常"],"category":"error_handling"}
+{"id":"q018","question":"HTTPException 的 detail 只能是字符串吗，可以传字典吗？","expected_evidence":["handling-errors#自定义错误详情"],"category":"error_handling"}
+{"id":"q019","question":"RequestValidationError 与什么情况有关，默认异常处理能否覆盖？","expected_evidence":["handling-errors#自定义异常处理"],"category":"error_handling"}
+{"id":"q020","question":"创建资源时如何让 POST 响应状态码为 201？","expected_evidence":["response-status-code#设置响应状态码"],"category":"status_code"}
+{"id":"q021","question":"status_code 应该写在函数参数里还是 @app.post 装饰器里？","expected_evidence":["response-status-code#设置响应状态码"],"category":"status_code"}
+{"id":"q022","question":"FastAPI 声明的 response status_code 会写入 OpenAPI schema 吗？","expected_evidence":["response-status-code#设置响应状态码"],"category":"status_code"}
+{"id":"q023","question":"HTTP 204 No Content 的响应 body 应该包含内容吗？","expected_evidence":["response-status-code#常见状态码"],"category":"status_code"}
+{"id":"q024","question":"FastAPI 官方推荐使用哪家云厂商托管 PostgreSQL？","expected_evidence":[],"category":"out_of_scope"}
+{"id":"q025","question":"FastAPI 官方基准测试中哪个向量数据库的 RAG 检索延迟最低？","expected_evidence":[],"category":"out_of_scope"}

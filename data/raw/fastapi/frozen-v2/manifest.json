@@ -1,0 +1,22 @@
+{
+  "dataset_id": "fastapi-curated-notes-frozen-v2",
+  "description": "Frozen project-authored Chinese summaries of selected official FastAPI tutorial topics. Notes are paraphrased and are not a verbatim mirror of upstream pages.",
+  "snapshot_date": "2026-10-26",
+  "upstream_project": "FastAPI",
+  "upstream_repository": "https://github.com/fastapi/fastapi",
+  "upstream_license": "MIT (repository license; consult the upstream LICENSE for reuse terms)",
+  "upstream_license_url": "https://github.com/fastapi/fastapi/blob/master/LICENSE",
+  "documents": [
+    {"path": "first-steps.md", "doc_id": "first-steps", "title": "First Steps", "source_url": "https://fastapi.tiangolo.com/tutorial/first-steps/"},
+    {"path": "query-parameters.md", "doc_id": "query-parameters", "title": "Query Parameters", "source_url": "https://fastapi.tiangolo.com/tutorial/query-params/"},
+    {"path": "request-body.md", "doc_id": "request-body", "title": "Request Body", "source_url": "https://fastapi.tiangolo.com/tutorial/body/"},
+    {"path": "handling-errors.md", "doc_id": "handling-errors", "title": "Handling Errors", "source_url": "https://fastapi.tiangolo.com/tutorial/handling-errors/"},
+    {"path": "response-status-code.md", "doc_id": "response-status-code", "title": "Response Status Code", "source_url": "https://fastapi.tiangolo.com/tutorial/response-status-code/"},
+    {"path": "dependencies.md", "doc_id": "dependencies", "title": "Dependencies", "source_url": "https://fastapi.tiangolo.com/tutorial/dependencies/"},
+    {"path": "body-nested-models.md", "doc_id": "body-nested-models", "title": "Body Nested Models", "source_url": "https://fastapi.tiangolo.com/tutorial/body-nested-models/"},
+    {"path": "response-model.md", "doc_id": "response-model", "title": "Response Model", "source_url": "https://fastapi.tiangolo.com/tutorial/response-model/"},
+    {"path": "background-tasks.md", "doc_id": "background-tasks", "title": "Background Tasks", "source_url": "https://fastapi.tiangolo.com/tutorial/background-tasks/"},
+    {"path": "middleware.md", "doc_id": "middleware", "title": "Middleware", "source_url": "https://fastapi.tiangolo.com/tutorial/middleware/"},
+    {"path": "security-first-steps.md", "doc_id": "security-first-steps", "title": "Security First Steps", "source_url": "https://fastapi.tiangolo.com/tutorial/security/first-steps/"}
+  ]
+}

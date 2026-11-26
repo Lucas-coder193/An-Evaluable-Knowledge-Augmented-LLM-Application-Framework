@@ -1,0 +1,76 @@
+{
+  "questions_total": 45,
+  "answerable_questions": 25,
+  "no_answer_questions": 20,
+  "mrr@5": 0.92,
+  "ranking_config": {
+    "retriever": "bm25",
+    "bm25_k1": 1.5,
+    "bm25_b": 0.75,
+    "section_boost": 0.0,
+    "source_title_boost": 0.0
+  },
+  "evaluation_scope": "Small project-authored development set over a 19-chunk pilot corpus; pipeline validation only, not an external benchmark or generalization claim.",
+  "note": "Retrieval metrics include only questions with labeled evidence; no-answer cases are reserved for later refusal evaluation.",
+  "top1_misses": [
+    {
+      "id": "frozen-combined-01",
+      "question": "请查阅 FastAPI 后台任务证据，说明它适合处理什么工作；然后调用 calculator 计算 (20 + 10) / 3，分别给出文档答案和计算结果。",
+      "expected_evidence": [
+        "background-tasks#返回后执行任务"
+      ],
+      "top_results": [
+        "background-tasks#任务范围",
+        "background-tasks#返回后执行任务",
+        "background-tasks#声明和添加任务",
+        "query-parameters#默认值与可选参数",
+        "middleware#请求和响应的公共处理"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-012",
+      "question": "为什么 OpenAPI schema 不只是给人看的文档？",
+      "expected_evidence": [
+        "first-steps#openapi-的用途"
+      ],
+      "top_results": [
+        "first-steps#自动交互式文档",
+        "first-steps#openapi-的用途",
+        "request-body#模型字段是否必填",
+        "response-status-code#设置响应状态码",
+        "dependencies#依赖注入的作用"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-016",
+      "question": "HTTPException 的 detail 能否承载结构化错误信息？",
+      "expected_evidence": [
+        "handling-errors#自定义错误详情"
+      ],
+      "top_results": [
+        "handling-errors#httpexception",
+        "handling-errors#自定义错误详情",
+        "handling-errors#抛出异常而不是返回异常",
+        "dependencies#依赖与安全",
+        "response-status-code#常见状态码"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-017",
+      "question": "RequestValidationError 主要表示哪类失败？",
+      "expected_evidence": [
+        "handling-errors#自定义异常处理"
+      ],
+      "top_results": [
+        "response-status-code#常见状态码",
+        "handling-errors#自定义异常处理"
+      ]
+    }
+  ],
+  "recall@1": 0.84,
+  "recall@3": 1.0,
+  "recall@5": 1.0,
+  "ndcg@1": 0.84,
+  "ndcg@3": 0.9409487605714333,
+  "ndcg@5": 0.9409487605714333
+}

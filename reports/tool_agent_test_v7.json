@@ -1,0 +1,4129 @@
+{
+  "questions_total": 45,
+  "evaluated_questions": 44,
+  "answerable_questions": 41,
+  "no_answer_questions": 3,
+  "failed_requests": 0,
+  "workflow_incomplete": 1,
+  "refusal_accuracy": 0.9772727272727273,
+  "retrieval_tool_call_rate": 0.6363636363636364,
+  "retrieval_required_questions": 24,
+  "answerable_retrieval_hit_rate": 1.0,
+  "citation_support_rate": 0.92,
+  "citation_evaluated_questions": 25,
+  "answerable_citation_support_rate": 0.9583333333333334,
+  "tool_sequence_match_rate": 1.0,
+  "tool_sequence_evaluated_questions": 15,
+  "no_answer_refusal_rate": 1.0,
+  "tool_calls_total": 29,
+  "evaluation_scope": "Project-authored frozen evaluation set over the configured knowledge index; agent validation only, not an external benchmark.",
+  "metric_denominator": "Quality metrics exclude request_failed and workflow_incomplete rows; evaluated_questions includes completed model answers and application evidence-gate refusals.",
+  "agent": "openai-responses:deepseek/deepseek-v3.2",
+  "retriever": {
+    "retriever": "two_stage_rerank",
+    "candidate_k": 20,
+    "candidate_retriever": {
+      "retriever": "hybrid_weighted",
+      "candidate_k": 20,
+      "dense_weight": 0.5,
+      "sparse_weight": 0.5,
+      "normalization": "per-query min-max over each returned candidate list; missing score=0",
+      "fusion_formula": "(1-dense_weight)*sparse_norm + dense_weight*dense_norm",
+      "components": {
+        "sparse": {
+          "retriever": "bm25",
+          "bm25_k1": 1.5,
+          "bm25_b": 0.75,
+          "section_boost": 0.0,
+          "source_title_boost": 0.0
+        },
+        "dense": {
+          "retriever": "dense_cosine",
+          "embedding_model": "BAAI/bge-small-zh-v1.5",
+          "embedding_library": "fastembed",
+          "embedding_library_version": "0.9.0",
+          "execution_device": "CPU",
+          "embedding_dimension": 512,
+          "document_text_fields": [
+            "section_title",
+            "text"
+          ],
+          "similarity": "cosine",
+          "cache_schema_version": 1
+        }
+      }
+    },
+    "reranker": {
+      "reranker": "late_interaction_maxsim",
+      "model": "lightonai/mLateOn",
+      "library": "fastembed",
+      "library_version": "0.9.0",
+      "similarity": "sum_of_query_token_max_cosine"
+    }
+  },
+  "latency_ms": {
+    "count": 45,
+    "p50": 16338.47,
+    "p95": 36733.55,
+    "max": 47647.98
+  },
+  "token_usage": {
+    "questions_with_usage": 44,
+    "input_tokens": 94366,
+    "output_tokens": 6202,
+    "total_tokens": 100568
+  },
+  "rows": [
+    {
+      "id": "frozen-direct-01",
+      "question": "RAG 如何结合外部资料回答问题？",
+      "task_type": "direct",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": false,
+      "retrieval_call_count": 0,
+      "retrieved_evidence_ids": [],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": null,
+      "code_block_check": null,
+      "answer": "我主要专注于FastAPI文档检索、计算和日期转换等特定功能。关于RAG（检索增强生成）如何结合外部资料回答问题的技术细节，这超出了我当前工具的能力范围。\n\n我的主要功能包括：\n- 检索FastAPI官方文档\n- 执行基本数学计算\n- 日期转换\n- 查询特定HTTP状态码信息\n\n如果您有FastAPI相关的问题，我很乐意帮您查找官方文档来解答。",
+      "raw_answer": null,
+      "tool_calls": [],
+      "generation_usage": {
+        "input_tokens": 854,
+        "output_tokens": 93,
+        "total_tokens": 947
+      },
+      "latency_ms": 7514.52,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-direct-02",
+      "question": "在本项目中，API 是什么？",
+      "task_type": "direct",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "first-steps#openapi-的用途",
+        "first-steps#路径操作"
+      ],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": null,
+      "code_block_check": null,
+      "answer": "根据 FastAPI 文档，API（应用程序编程接口）是应用程序之间通信的接口。在 FastAPI 中，API 通过路径操作来定义，其中路径是 URL 中主机名之后的路由部分（如 `/items/foo`），操作指 HTTP 方法（如 GET、POST、PUT、DELETE）【E2】。OpenAPI schema 会描述 API 的路径、参数以及输入和输出数据结构，为自动交互式文档提供依据【E1】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "01a1a23fa9dae98a259cf58de58571ce",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "API 是什么",
+            "top_k": 2
+          },
+          "model_round_latency_ms": 19510.38,
+          "result": {
+            "query": "API 是什么",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "first-steps#openapi-的用途",
+                "source_title": "First Steps",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/first-steps/",
+                "section_title": "OpenAPI 的用途",
+                "text": "OpenAPI schema 描述 API 的路径、参数以及输入和输出数据结构。它为自动交互式文档提供依据，也可用于生成与 API 通信的客户端代码，例如前端、移动端或 IoT 客户端。",
+                "score": 5.749965190887451,
+                "rerank_score": 5.749965190887451
+              },
+              {
+                "label": "E2",
+                "evidence_id": "first-steps#路径操作",
+                "source_title": "First Steps",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/first-steps/",
+                "section_title": "路径操作",
+                "text": "路径是 URL 中主机名之后的路由部分，例如 `/items/foo`；操作指 HTTP 方法，例如 GET、POST、PUT 或 DELETE。路径操作装饰器（例如 `@app.get(\"/\")`）把路径和方法关联到其下方的函数。GET 通常用于读取，POST 通常用于创建，PUT 用于更新，DELETE 用于删除；这些是常见约定，FastAPI 不强制每个方法只能用于某个目的。",
+                "score": 5.728296756744385,
+                "rerank_score": 5.728296756744385
+              }
+            ]
+          },
+          "tool_latency_ms": 1504.65
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2077,
+        "output_tokens": 182,
+        "total_tokens": 2259
+      },
+      "latency_ms": 33488.55,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-direct-04",
+      "question": "LLM 工具调用在本项目中是怎样工作的？",
+      "task_type": "direct",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": false,
+      "retrieval_call_count": 0,
+      "retrieved_evidence_ids": [],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": null,
+      "code_block_check": null,
+      "answer": "我主要专注于回答关于FastAPI文档、计算、日期转换和HTTP状态码查询的问题。关于LLM工具调用在本项目中的工作原理，这涉及到系统架构和实现细节，我目前没有相关的工具来获取这方面的信息。\n\n如果您有关于FastAPI文档的具体问题，我可以帮您搜索相关文档来解答。或者如果您需要进行计算、日期转换或查询特定HTTP状态码，我也很乐意协助您。",
+      "raw_answer": null,
+      "tool_calls": [],
+      "generation_usage": {
+        "input_tokens": 855,
+        "output_tokens": 87,
+        "total_tokens": 942
+      },
+      "latency_ms": 6797.11,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-direct-05",
+      "question": "JSON 在 HTTP API 中通常有什么用途？",
+      "task_type": "direct",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "first-steps#openapi-的用途",
+        "first-steps#最小应用"
+      ],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": null,
+      "code_block_check": null,
+      "answer": "根据 FastAPI 文档，JSON 在 HTTP API 中主要用于数据交换。具体来说，FastAPI 应用中函数返回的字典会自动转换为 JSON 响应【E1】。此外，OpenAPI schema 也使用 JSON 来描述 API 的路径、参数以及输入和输出数据结构，为自动交互式文档和客户端代码生成提供依据【E2】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "01a1a240067f3e4185ded8bb876279cf",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "JSON HTTP API 用途 数据交换",
+            "top_k": 2
+          },
+          "model_round_latency_ms": 19110.67,
+          "result": {
+            "query": "JSON HTTP API 用途 数据交换",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "first-steps#最小应用",
+                "source_title": "First Steps",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/first-steps/",
+                "section_title": "最小应用",
+                "text": "一个最简单的 FastAPI 应用先从 `from fastapi import FastAPI` 导入类，再用 `app = FastAPI()` 创建应用实例。使用 `@app.get(\"/\")` 等路径操作装饰器把 URL 路径和 HTTP 方法映射到 Python 函数；函数返回的字典可作为 JSON 响应。",
+                "score": 9.314264297485352,
+                "rerank_score": 9.314264297485352
+              },
+              {
+                "label": "E2",
+                "evidence_id": "first-steps#openapi-的用途",
+                "source_title": "First Steps",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/first-steps/",
+                "section_title": "OpenAPI 的用途",
+                "text": "OpenAPI schema 描述 API 的路径、参数以及输入和输出数据结构。它为自动交互式文档提供依据，也可用于生成与 API 通信的客户端代码，例如前端、移动端或 IoT 客户端。",
+                "score": 9.295310020446777,
+                "rerank_score": 9.295310020446777
+              }
+            ]
+          },
+          "tool_latency_ms": 1473.21
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2055,
+        "output_tokens": 171,
+        "total_tokens": 2226
+      },
+      "latency_ms": 36883.93,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-direct-07",
+      "question": "模型路由需要决定什么？",
+      "task_type": "direct",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "body-nested-models#多层请求体",
+        "response-model#输出过滤",
+        "response-model#返回模型的作用"
+      ],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": null,
+      "code_block_check": null,
+      "answer": "根据 FastAPI 文档，模型路由主要决定响应数据的结构和处理方式。具体来说，通过 `response_model` 参数声明响应模型，FastAPI 会用它来生成 API 文档、校验返回值，并将输出转换和过滤为模型允许的字段【E1】。响应模型还能避免将内部字段直接暴露给客户端，即使路径操作返回包含额外字段的字典，响应也会按照声明的模型进行过滤和序列化【E2】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_1158716ae233479fbb72730a",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "模型路由 决定什么",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 5668.74,
+          "result": {
+            "query": "模型路由 决定什么",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "response-model#返回模型的作用",
+                "source_title": "Response Model",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/response-model/",
+                "section_title": "返回模型的作用",
+                "text": "路径操作可以通过 `response_model` 声明响应数据的模型。FastAPI 会使用它生成文档、校验返回值，并把输出转换和过滤为模型允许的字段。",
+                "score": 7.519267559051514,
+                "rerank_score": 7.519267559051514
+              },
+              {
+                "label": "E2",
+                "evidence_id": "response-model#输出过滤",
+                "source_title": "Response Model",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/response-model/",
+                "section_title": "输出过滤",
+                "text": "响应模型不仅用于说明返回类型，也能避免把内部字段直接暴露给客户端。即使路径操作返回一个包含额外字段的字典，响应仍会按照声明的模型过滤和序列化。",
+                "score": 7.494115352630615,
+                "rerank_score": 7.494115352630615
+              },
+              {
+                "label": "E3",
+                "evidence_id": "body-nested-models#多层请求体",
+                "source_title": "Body Nested Models",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body-nested-models/",
+                "section_title": "多层请求体",
+                "text": "路径参数、query 参数和 Pydantic 请求体可以同时出现在一个路径操作中。FastAPI 会根据参数是否出现在路径、是否是简单类型或是否是 Pydantic 模型，分别从路径、查询字符串或 JSON body 中读取。",
+                "score": 7.488276481628418,
+                "rerank_score": 7.488276481628418
+              }
+            ]
+          },
+          "tool_latency_ms": 1476.63
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2054,
+        "output_tokens": 180,
+        "total_tokens": 2234
+      },
+      "latency_ms": 14146.49,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-direct-08",
+      "question": "为什么系统需要缓存？",
+      "task_type": "direct",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": false,
+      "retrieval_call_count": 0,
+      "retrieved_evidence_ids": [],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": null,
+      "code_block_check": null,
+      "answer": "这个问题超出了我当前工具的能力范围。我主要专注于FastAPI文档检索、计算器、日期转换和HTTP状态码查询等功能。\n\n关于系统缓存的问题，涉及计算机系统架构、性能优化等专业知识，需要更广泛的背景知识来全面回答。您可以考虑咨询相关技术文档或专业技术人员来获取详细的解释。",
+      "raw_answer": null,
+      "tool_calls": [],
+      "generation_usage": {
+        "input_tokens": 870,
+        "output_tokens": 66,
+        "total_tokens": 936
+      },
+      "latency_ms": 5856.63,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-direct-09",
+      "question": "如何定义一次请求的延迟？",
+      "task_type": "direct",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 2,
+      "retrieved_evidence_ids": [
+        "background-tasks#返回后执行任务",
+        "middleware#请求和响应的公共处理",
+        "request-body#请求体与-http-方法"
+      ],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": null,
+      "code_block_check": null,
+      "answer": "根据 FastAPI 文档，请求延迟通常指从客户端发送请求到收到完整响应的时间间隔。在 FastAPI 中，可以通过中间件来测量请求计时【E1】。中间件包裹每个请求，可以在路径操作执行前开始计时，在响应返回给客户端前结束计时，从而计算整个请求处理过程的延迟。这种计时适合用于性能监控和日志记录【E1】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_d40c624bfe1448439b1e3c28",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "请求延迟 定义 测量",
+            "top_k": 2
+          },
+          "model_round_latency_ms": 7759.77,
+          "result": {
+            "query": "请求延迟 定义 测量",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "middleware#请求和响应的公共处理",
+                "source_title": "Middleware",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/middleware/",
+                "section_title": "请求和响应的公共处理",
+                "text": "中间件会包裹每个请求：它可以在路径操作执行前读取或修改请求，在路径操作完成后处理响应，然后把响应返回给客户端。适合用于请求计时、日志、统一响应头或跨请求的通用逻辑。",
+                "score": 7.518502235412598,
+                "rerank_score": 7.518502235412598
+              },
+              {
+                "label": "E2",
+                "evidence_id": "request-body#请求体与-http-方法",
+                "source_title": "Request Body",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body/",
+                "section_title": "请求体与 HTTP 方法",
+                "text": "发送请求体常用 POST，也可以用于 PUT、DELETE 或 PATCH。GET 请求携带请求体在规范中行为未定义；FastAPI 虽支持极少数复杂场景，但不鼓励这样做，Swagger UI 也不会显示 GET 请求体文档，且中间代理可能不支持。",
+                "score": 7.494515419006348,
+                "rerank_score": 7.494515419006348
+              }
+            ]
+          },
+          "tool_latency_ms": 1371.44
+        },
+        {
+          "round": 2,
+          "call_id": "call_9c9f0464471c44e8bd7cd3c9",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "请求计时 性能监控 响应时间",
+            "top_k": 2
+          },
+          "model_round_latency_ms": 5571.57,
+          "result": {
+            "query": "请求计时 性能监控 响应时间",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "middleware#请求和响应的公共处理",
+                "source_title": "Middleware",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/middleware/",
+                "section_title": "请求和响应的公共处理",
+                "text": "中间件会包裹每个请求：它可以在路径操作执行前读取或修改请求，在路径操作完成后处理响应，然后把响应返回给客户端。适合用于请求计时、日志、统一响应头或跨请求的通用逻辑。",
+                "score": 10.342046737670898,
+                "rerank_score": 10.342046737670898
+              },
+              {
+                "label": "E2",
+                "evidence_id": "background-tasks#返回后执行任务",
+                "source_title": "Background Tasks",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/background-tasks/",
+                "section_title": "返回后执行任务",
+                "text": "FastAPI 可以在响应返回后运行小型后台任务，例如写日志或发送通知。适合用于客户端不必等待完成的轻量操作；接口可以先返回结果，再执行任务。",
+                "score": 10.256840705871582,
+                "rerank_score": 10.256840705871582
+              }
+            ]
+          },
+          "tool_latency_ms": 1369.33
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 3477,
+        "output_tokens": 258,
+        "total_tokens": 3735
+      },
+      "latency_ms": 21096.09,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-date-01",
+      "question": "请调用 date_conversion 查询 2026-01-01 是星期几。",
+      "task_type": "tool",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [
+        {
+          "name": "date_conversion",
+          "arguments": {
+            "date": "2026-01-01",
+            "operation": "weekday"
+          }
+        }
+      ],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": false,
+      "retrieval_call_count": 0,
+      "retrieved_evidence_ids": [],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": true,
+      "code_block_check": null,
+      "answer": "2026年1月1日是星期四。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_4b4774ef2888400f80f14cd7",
+          "name": "date_conversion",
+          "arguments": {
+            "date": "2026-01-01",
+            "operation": "weekday"
+          },
+          "model_round_latency_ms": 5258.4,
+          "result": {
+            "date": "2026-01-01",
+            "operation": "weekday",
+            "weekday": "Thursday",
+            "weekday_number": 4
+          },
+          "tool_latency_ms": 0.07
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 1866,
+        "output_tokens": 92,
+        "total_tokens": 1958
+      },
+      "latency_ms": 8914.26,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-date-02",
+      "question": "请调用 date_conversion 查询 2026-02-14 是星期几。",
+      "task_type": "tool",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [
+        {
+          "name": "date_conversion",
+          "arguments": {
+            "date": "2026-02-14",
+            "operation": "weekday"
+          }
+        }
+      ],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": false,
+      "retrieval_call_count": 0,
+      "retrieved_evidence_ids": [],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": true,
+      "code_block_check": null,
+      "answer": "2026年2月14日是星期六。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_ff0b400e5b7244f3ae30c384",
+          "name": "date_conversion",
+          "arguments": {
+            "date": "2026-02-14",
+            "operation": "weekday"
+          },
+          "model_round_latency_ms": 6078.77,
+          "result": {
+            "date": "2026-02-14",
+            "operation": "weekday",
+            "weekday": "Saturday",
+            "weekday_number": 6
+          },
+          "tool_latency_ms": 0.05
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 1865,
+        "output_tokens": 91,
+        "total_tokens": 1956
+      },
+      "latency_ms": 10382.97,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-date-03",
+      "question": "请调用 date_conversion 查询 2026-03-08 是星期几。",
+      "task_type": "tool",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [
+        {
+          "name": "date_conversion",
+          "arguments": {
+            "date": "2026-03-08",
+            "operation": "weekday"
+          }
+        }
+      ],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": false,
+      "retrieval_call_count": 0,
+      "retrieved_evidence_ids": [],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": true,
+      "code_block_check": null,
+      "answer": "2026年3月8日是星期日。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_749b7b9ccffb487d84473a97",
+          "name": "date_conversion",
+          "arguments": {
+            "date": "2026-03-08",
+            "operation": "weekday"
+          },
+          "model_round_latency_ms": 5762.3,
+          "result": {
+            "date": "2026-03-08",
+            "operation": "weekday",
+            "weekday": "Sunday",
+            "weekday_number": 7
+          },
+          "tool_latency_ms": 0.05
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 1866,
+        "output_tokens": 92,
+        "total_tokens": 1958
+      },
+      "latency_ms": 8304.02,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-date-04",
+      "question": "请调用 date_conversion 查询 2026-06-01 是星期几。",
+      "task_type": "tool",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [
+        {
+          "name": "date_conversion",
+          "arguments": {
+            "date": "2026-06-01",
+            "operation": "weekday"
+          }
+        }
+      ],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": false,
+      "retrieval_call_count": 0,
+      "retrieved_evidence_ids": [],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": true,
+      "code_block_check": null,
+      "answer": "2026年6月1日是星期一。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_2601d200587a4c76a9d8ead9",
+          "name": "date_conversion",
+          "arguments": {
+            "date": "2026-06-01",
+            "operation": "weekday"
+          },
+          "model_round_latency_ms": 4640.75,
+          "result": {
+            "date": "2026-06-01",
+            "operation": "weekday",
+            "weekday": "Monday",
+            "weekday_number": 1
+          },
+          "tool_latency_ms": 0.05
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 1866,
+        "output_tokens": 92,
+        "total_tokens": 1958
+      },
+      "latency_ms": 7883.1,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-date-05",
+      "question": "请调用 date_conversion 查询 2026-09-30 是星期几。",
+      "task_type": "tool",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [
+        {
+          "name": "date_conversion",
+          "arguments": {
+            "date": "2026-09-30",
+            "operation": "weekday"
+          }
+        }
+      ],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": false,
+      "retrieval_call_count": 0,
+      "retrieved_evidence_ids": [],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": true,
+      "code_block_check": null,
+      "answer": "2026年9月30日是星期三。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_3787a6e914da4e27ba490cba",
+          "name": "date_conversion",
+          "arguments": {
+            "date": "2026-09-30",
+            "operation": "weekday"
+          },
+          "model_round_latency_ms": 4807.03,
+          "result": {
+            "date": "2026-09-30",
+            "operation": "weekday",
+            "weekday": "Wednesday",
+            "weekday_number": 3
+          },
+          "tool_latency_ms": 0.06
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 1866,
+        "output_tokens": 92,
+        "total_tokens": 1958
+      },
+      "latency_ms": 7085.94,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-date-06",
+      "question": "请调用 date_conversion 查询 2026-12-31 是星期几。",
+      "task_type": "tool",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [
+        {
+          "name": "date_conversion",
+          "arguments": {
+            "date": "2026-12-31",
+            "operation": "weekday"
+          }
+        }
+      ],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": false,
+      "retrieval_call_count": 0,
+      "retrieved_evidence_ids": [],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": true,
+      "code_block_check": null,
+      "answer": "2026年12月31日是星期四。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_8bdc7c1ffd4b46cfa4108888",
+          "name": "date_conversion",
+          "arguments": {
+            "date": "2026-12-31",
+            "operation": "weekday"
+          },
+          "model_round_latency_ms": 5170.5,
+          "result": {
+            "date": "2026-12-31",
+            "operation": "weekday",
+            "weekday": "Thursday",
+            "weekday_number": 4
+          },
+          "tool_latency_ms": 0.05
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 1866,
+        "output_tokens": 92,
+        "total_tokens": 1958
+      },
+      "latency_ms": 12870.88,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-combined-01",
+      "question": "请查阅 FastAPI 后台任务证据，说明它适合处理什么工作；然后调用 calculator 计算 (20 + 10) / 3，分别给出文档答案和计算结果。",
+      "task_type": "combined",
+      "status": "completed",
+      "expected_evidence": [
+        "background-tasks#返回后执行任务"
+      ],
+      "expected_tools": [
+        {
+          "name": "calculator",
+          "arguments": {
+            "expression": "(20 + 10) / 3"
+          }
+        }
+      ],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "background-tasks#任务范围",
+        "background-tasks#返回后执行任务"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E2"
+        ],
+        "cited_evidence_ids": [
+          "background-tasks#任务范围",
+          "background-tasks#返回后执行任务"
+        ],
+        "allowed_evidence_ids": [
+          "background-tasks#任务范围",
+          "background-tasks#返回后执行任务"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": true,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "FastAPI 后台任务适合处理短小、与当前进程资源相关的工作，如写日志或发送通知等客户端不必等待完成的轻量操作【E1】【E2】。\n\n计算结果：(20 + 10) / 3 = 10.0",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_2736a34ea6df4b9a9d4101ad",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "后台任务 适合处理什么工作",
+            "top_k": 2
+          },
+          "model_round_latency_ms": 8977.65,
+          "result": {
+            "query": "后台任务 适合处理什么工作",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "background-tasks#任务范围",
+                "source_title": "Background Tasks",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/background-tasks/",
+                "section_title": "任务范围",
+                "text": "后台任务适合短小、与当前进程资源相关的工作。重量级计算或需要跨进程、多机器调度的任务应考虑任务队列等外部系统，而不是把所有工作塞进单个 Web 进程。",
+                "score": 9.488368034362793,
+                "rerank_score": 9.488368034362793
+              },
+              {
+                "label": "E2",
+                "evidence_id": "background-tasks#返回后执行任务",
+                "source_title": "Background Tasks",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/background-tasks/",
+                "section_title": "返回后执行任务",
+                "text": "FastAPI 可以在响应返回后运行小型后台任务，例如写日志或发送通知。适合用于客户端不必等待完成的轻量操作；接口可以先返回结果，再执行任务。",
+                "score": 9.392754554748535,
+                "rerank_score": 9.392754554748535
+              }
+            ]
+          },
+          "tool_latency_ms": 1466.53
+        },
+        {
+          "round": 2,
+          "call_id": "call_6df1a3b0b4fd47d4a1dcb458",
+          "name": "calculator",
+          "arguments": {
+            "expression": "(20 + 10) / 3"
+          },
+          "model_round_latency_ms": 9248.97,
+          "result": {
+            "expression": "(20 + 10) / 3",
+            "value": 10.0
+          },
+          "tool_latency_ms": 0.11
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 3266,
+        "output_tokens": 176,
+        "total_tokens": 3442
+      },
+      "latency_ms": 25348.43,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-combined-02",
+      "question": "请查阅后台任务注册证据，说明如何注册任务；然后调用 calculator 计算 18 % 5，分别给出文档答案和计算结果。",
+      "task_type": "combined",
+      "status": "completed",
+      "expected_evidence": [
+        "background-tasks#声明和添加任务"
+      ],
+      "expected_tools": [
+        {
+          "name": "calculator",
+          "arguments": {
+            "expression": "18 % 5"
+          }
+        }
+      ],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "background-tasks#任务范围",
+        "background-tasks#声明和添加任务",
+        "background-tasks#返回后执行任务"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E3",
+          "E2"
+        ],
+        "cited_evidence_ids": [
+          "background-tasks#声明和添加任务",
+          "background-tasks#返回后执行任务"
+        ],
+        "allowed_evidence_ids": [
+          "background-tasks#任务范围",
+          "background-tasks#声明和添加任务",
+          "background-tasks#返回后执行任务"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": true,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "根据 FastAPI 文档，注册后台任务需要在路径操作中声明 `BackgroundTasks` 参数，然后用 `add_task` 注册函数及其参数【E3】。任务函数可以是普通函数或异步函数，FastAPI 会在响应返回后调用它【E2】。\n\n计算 18 % 5 的结果是 3。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_ca30588a3f6e4eeeabe91f02",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "后台任务注册",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 4909.34,
+          "result": {
+            "query": "后台任务注册",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "background-tasks#任务范围",
+                "source_title": "Background Tasks",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/background-tasks/",
+                "section_title": "任务范围",
+                "text": "后台任务适合短小、与当前进程资源相关的工作。重量级计算或需要跨进程、多机器调度的任务应考虑任务队列等外部系统，而不是把所有工作塞进单个 Web 进程。",
+                "score": 6.673669815063477,
+                "rerank_score": 6.673669815063477
+              },
+              {
+                "label": "E2",
+                "evidence_id": "background-tasks#返回后执行任务",
+                "source_title": "Background Tasks",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/background-tasks/",
+                "section_title": "返回后执行任务",
+                "text": "FastAPI 可以在响应返回后运行小型后台任务，例如写日志或发送通知。适合用于客户端不必等待完成的轻量操作；接口可以先返回结果，再执行任务。",
+                "score": 6.63435697555542,
+                "rerank_score": 6.63435697555542
+              },
+              {
+                "label": "E3",
+                "evidence_id": "background-tasks#声明和添加任务",
+                "source_title": "Background Tasks",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/background-tasks/",
+                "section_title": "声明和添加任务",
+                "text": "在路径操作中声明 `BackgroundTasks` 参数，然后用 `add_task` 注册函数及其参数。任务函数可以是普通函数或异步函数，FastAPI 会负责在响应流程之后调用它。",
+                "score": 6.631773948669434,
+                "rerank_score": 6.631773948669434
+              }
+            ]
+          },
+          "tool_latency_ms": 1444.15
+        },
+        {
+          "round": 2,
+          "call_id": "call_a602c70fcfd14b41bde6b1f4",
+          "name": "calculator",
+          "arguments": {
+            "expression": "18 % 5"
+          },
+          "model_round_latency_ms": 3699.63,
+          "result": {
+            "expression": "18 % 5",
+            "value": 3
+          },
+          "tool_latency_ms": 0.07
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 3375,
+        "output_tokens": 184,
+        "total_tokens": 3559
+      },
+      "latency_ms": 15051.62,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-combined-03",
+      "question": "请查阅后台任务范围证据，说明哪些工作应交给外部任务队列；然后调用 calculator 计算 2 ** 6，分别给出文档答案和计算结果。",
+      "task_type": "combined",
+      "status": "completed",
+      "expected_evidence": [
+        "background-tasks#任务范围"
+      ],
+      "expected_tools": [
+        {
+          "name": "calculator",
+          "arguments": {
+            "expression": "2 ** 6"
+          }
+        }
+      ],
+      "expected_refusal": false,
+      "predicted_refusal": true,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "background-tasks#任务范围",
+        "background-tasks#声明和添加任务",
+        "background-tasks#返回后执行任务"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": false,
+        "cited_labels": [],
+        "cited_evidence_ids": [],
+        "allowed_evidence_ids": [
+          "background-tasks#任务范围",
+          "background-tasks#声明和添加任务",
+          "background-tasks#返回后执行任务"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": true,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "证据不足，无法回答。",
+      "raw_answer": "计算结果：2 ** 6 = 64。",
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_5aa8db1b5c044660ba60b955",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "后台任务 外部任务队列",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 12303.42,
+          "result": {
+            "query": "后台任务 外部任务队列",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "background-tasks#任务范围",
+                "source_title": "Background Tasks",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/background-tasks/",
+                "section_title": "任务范围",
+                "text": "后台任务适合短小、与当前进程资源相关的工作。重量级计算或需要跨进程、多机器调度的任务应考虑任务队列等外部系统，而不是把所有工作塞进单个 Web 进程。",
+                "score": 9.539199829101562,
+                "rerank_score": 9.539199829101562
+              },
+              {
+                "label": "E2",
+                "evidence_id": "background-tasks#返回后执行任务",
+                "source_title": "Background Tasks",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/background-tasks/",
+                "section_title": "返回后执行任务",
+                "text": "FastAPI 可以在响应返回后运行小型后台任务，例如写日志或发送通知。适合用于客户端不必等待完成的轻量操作；接口可以先返回结果，再执行任务。",
+                "score": 9.41372299194336,
+                "rerank_score": 9.41372299194336
+              },
+              {
+                "label": "E3",
+                "evidence_id": "background-tasks#声明和添加任务",
+                "source_title": "Background Tasks",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/background-tasks/",
+                "section_title": "声明和添加任务",
+                "text": "在路径操作中声明 `BackgroundTasks` 参数，然后用 `add_task` 注册函数及其参数。任务函数可以是普通函数或异步函数，FastAPI 会负责在响应流程之后调用它。",
+                "score": 9.359121322631836,
+                "rerank_score": 9.359121322631836
+              }
+            ]
+          },
+          "tool_latency_ms": 1465.01
+        },
+        {
+          "round": 2,
+          "call_id": "call_ed316d2765c1422a872e7b87",
+          "name": "calculator",
+          "arguments": {
+            "expression": "2 ** 6"
+          },
+          "model_round_latency_ms": 11420.5,
+          "result": {
+            "expression": "2 ** 6",
+            "value": 64
+          },
+          "tool_latency_ms": 0.08
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 3473,
+        "output_tokens": 200,
+        "total_tokens": 3673
+      },
+      "latency_ms": 27863.63,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-combined-04",
+      "question": "请查阅列表字段证据，说明如何声明带元素类型的字段；然后调用 calculator 计算 (9 + 3) * 2，分别给出文档答案和计算结果。",
+      "task_type": "combined",
+      "status": "completed",
+      "expected_evidence": [
+        "body-nested-models#列表字段"
+      ],
+      "expected_tools": [
+        {
+          "name": "calculator",
+          "arguments": {
+            "expression": "(9 + 3) * 2"
+          }
+        }
+      ],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "body-nested-models#列表字段",
+        "body-nested-models#嵌套模型",
+        "request-body#使用-pydantic-声明请求体"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E1"
+        ],
+        "cited_evidence_ids": [
+          "body-nested-models#列表字段",
+          "body-nested-models#列表字段"
+        ],
+        "allowed_evidence_ids": [
+          "body-nested-models#列表字段",
+          "body-nested-models#嵌套模型",
+          "request-body#使用-pydantic-声明请求体"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": true,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "在 FastAPI 中，Pydantic 模型字段可以声明为 `list[str]`、`set[str]` 等带元素类型的容器【E1】。FastAPI 会根据模型定义解析和校验请求体，并在 API 文档中展示字段类型【E1】。\n\n计算 `(9 + 3) * 2` 的结果是 24。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_85078f8eaf6d46b188cb9518",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "列表字段 元素类型 声明",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 5616.05,
+          "result": {
+            "query": "列表字段 元素类型 声明",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "body-nested-models#列表字段",
+                "source_title": "Body Nested Models",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body-nested-models/",
+                "section_title": "列表字段",
+                "text": "Pydantic 模型字段可以声明为 `list[str]`、`set[str]` 等带元素类型的容器。FastAPI 会根据模型定义解析和校验请求体，并在 API 文档中展示字段类型。",
+                "score": 8.54391098022461,
+                "rerank_score": 8.54391098022461
+              },
+              {
+                "label": "E2",
+                "evidence_id": "request-body#使用-pydantic-声明请求体",
+                "source_title": "Request Body",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body/",
+                "section_title": "使用 Pydantic 声明请求体",
+                "text": "客户端需要向 API 发送数据时，可以把数据放在请求体（request body）中。FastAPI 通常使用继承自 Pydantic `BaseModel` 的类声明请求体结构，再把该模型类型声明为路径操作函数的参数。模型字段可使用标准 Python 类型。",
+                "score": 8.40550708770752,
+                "rerank_score": 8.40550708770752
+              },
+              {
+                "label": "E3",
+                "evidence_id": "body-nested-models#嵌套模型",
+                "source_title": "Body Nested Models",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body-nested-models/",
+                "section_title": "嵌套模型",
+                "text": "一个 Pydantic 模型可以把另一个模型作为字段类型。例如 `Item` 可以包含可选的 `Image`，而 `Offer` 可以包含一组 `Item`。嵌套模型支持编辑器提示、数据转换、校验和自动文档生成。",
+                "score": 8.394098281860352,
+                "rerank_score": 8.394098281860352
+              }
+            ]
+          },
+          "tool_latency_ms": 1465.54
+        },
+        {
+          "round": 2,
+          "call_id": "call_9bf9087bdcd841d0b72feabd",
+          "name": "calculator",
+          "arguments": {
+            "expression": "(9 + 3) * 2"
+          },
+          "model_round_latency_ms": 10065.87,
+          "result": {
+            "expression": "(9 + 3) * 2",
+            "value": 24
+          },
+          "tool_latency_ms": 0.08
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 3526,
+        "output_tokens": 202,
+        "total_tokens": 3728
+      },
+      "latency_ms": 47647.98,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-combined-05",
+      "question": "请查阅嵌套模型证据，说明嵌套模型有什么作用；然后调用 calculator 计算 100 / 4，分别给出文档答案和计算结果。",
+      "task_type": "combined",
+      "status": "completed",
+      "expected_evidence": [
+        "body-nested-models#嵌套模型"
+      ],
+      "expected_tools": [
+        {
+          "name": "calculator",
+          "arguments": {
+            "expression": "100 / 4"
+          }
+        }
+      ],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "body-nested-models#嵌套模型",
+        "response-model#返回模型的作用"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E1"
+        ],
+        "cited_evidence_ids": [
+          "body-nested-models#嵌套模型",
+          "body-nested-models#嵌套模型"
+        ],
+        "allowed_evidence_ids": [
+          "body-nested-models#嵌套模型",
+          "response-model#返回模型的作用"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": true,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "嵌套模型的作用是允许一个Pydantic模型把另一个模型作为字段类型【E1】，支持编辑器提示、数据转换、校验和自动文档生成【E1】。\n\n计算器计算结果：100 ÷ 4 = 25.0",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "01a1a2447b63ab35fe3d25f338726dcd",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "嵌套模型 作用",
+            "top_k": 2
+          },
+          "model_round_latency_ms": 16355.37,
+          "result": {
+            "query": "嵌套模型 作用",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "body-nested-models#嵌套模型",
+                "source_title": "Body Nested Models",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body-nested-models/",
+                "section_title": "嵌套模型",
+                "text": "一个 Pydantic 模型可以把另一个模型作为字段类型。例如 `Item` 可以包含可选的 `Image`，而 `Offer` 可以包含一组 `Item`。嵌套模型支持编辑器提示、数据转换、校验和自动文档生成。",
+                "score": 7.603884696960449,
+                "rerank_score": 7.603884696960449
+              },
+              {
+                "label": "E2",
+                "evidence_id": "response-model#返回模型的作用",
+                "source_title": "Response Model",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/response-model/",
+                "section_title": "返回模型的作用",
+                "text": "路径操作可以通过 `response_model` 声明响应数据的模型。FastAPI 会使用它生成文档、校验返回值，并把输出转换和过滤为模型允许的字段。",
+                "score": 7.545578956604004,
+                "rerank_score": 7.545578956604004
+              }
+            ]
+          },
+          "tool_latency_ms": 1455.46
+        },
+        {
+          "round": 2,
+          "call_id": "call_7672b23057664609939ecc3f",
+          "name": "calculator",
+          "arguments": {
+            "expression": "100 / 4"
+          },
+          "model_round_latency_ms": 10974.5,
+          "result": {
+            "expression": "100 / 4",
+            "value": 25.0
+          },
+          "tool_latency_ms": 0.08
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 3275,
+        "output_tokens": 163,
+        "total_tokens": 3438
+      },
+      "latency_ms": 44466.17,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-ambiguous-01",
+      "question": "请说明这个接口应该如何优化。",
+      "task_type": "ambiguous",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": false,
+      "retrieval_call_count": 0,
+      "retrieved_evidence_ids": [],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": null,
+      "code_block_check": null,
+      "answer": "我需要先了解您指的是哪个具体的接口，才能提供优化建议。您能告诉我需要优化的是哪个接口吗？比如是 FastAPI 中的某个特定功能、路由设计、性能问题，还是其他方面的接口？\n\n这样我就能针对性地搜索 FastAPI 文档，为您提供基于官方文档的优化建议。",
+      "raw_answer": null,
+      "tool_calls": [],
+      "generation_usage": {
+        "input_tokens": 852,
+        "output_tokens": 66,
+        "total_tokens": 918
+      },
+      "latency_ms": 11456.65,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-ambiguous-02",
+      "question": "这个请求失败了，应该怎么处理？",
+      "task_type": "ambiguous",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": false,
+      "retrieval_call_count": 0,
+      "retrieved_evidence_ids": [],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": null,
+      "code_block_check": null,
+      "answer": "我主要专注于回答关于FastAPI文档、计算、日期转换和HTTP状态码的问题。您提到的\"请求失败了\"这个问题比较宽泛，我无法直接提供具体的解决方案。\n\n如果您能提供更多细节，比如：\n- 这是FastAPI相关的请求吗？\n- 具体的错误信息是什么？\n- 涉及什么类型的请求（API调用、数据库查询等）？\n\n这样我就能更好地帮助您。如果是FastAPI相关的问题，我可以帮您搜索官方文档来找到解决方案。",
+      "raw_answer": null,
+      "tool_calls": [],
+      "generation_usage": {
+        "input_tokens": 853,
+        "output_tokens": 100,
+        "total_tokens": 953
+      },
+      "latency_ms": 18678.02,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-tool-failure-01",
+      "question": "请调用 calculator 执行 2 / 0；如果工具报错，请说明原因，不要编造数值。",
+      "task_type": "tool_failure",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [
+        {
+          "name": "calculator",
+          "arguments": {
+            "expression": "2 / 0"
+          }
+        }
+      ],
+      "expected_refusal": true,
+      "predicted_refusal": true,
+      "retrieval_called": false,
+      "retrieval_call_count": 0,
+      "retrieved_evidence_ids": [],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": true,
+      "code_block_check": null,
+      "answer": "计算 2 / 0 时工具报错，原因是 **ZeroDivisionError**（除零错误）。在数学和编程中，任何数除以零都是未定义的，因此计算器工具无法执行这个操作并返回了除零错误。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_2f9558ec44f9498a8a37f442",
+          "name": "calculator",
+          "arguments": {
+            "expression": "2 / 0"
+          },
+          "model_round_latency_ms": 6152.25,
+          "error": "tool execution failed: ZeroDivisionError",
+          "tool_latency_ms": 0.09
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 1832,
+        "output_tokens": 112,
+        "total_tokens": 1944
+      },
+      "latency_ms": 15420.93,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-extra-rag-003",
+      "question": "为什么跨多机调度的重计算不应全部塞进单个 Web 进程？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "background-tasks#任务范围"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "background-tasks#任务范围",
+        "background-tasks#返回后执行任务",
+        "response-status-code#常见状态码"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E1"
+        ],
+        "cited_evidence_ids": [
+          "background-tasks#任务范围",
+          "background-tasks#任务范围"
+        ],
+        "allowed_evidence_ids": [
+          "background-tasks#任务范围",
+          "background-tasks#返回后执行任务",
+          "response-status-code#常见状态码"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "跨多机调度的重计算不应全部塞进单个 Web 进程，因为后台任务适合短小、与当前进程资源相关的工作【E1】。重量级计算或需要跨进程、多机器调度的任务应考虑任务队列等外部系统，而不是把所有工作塞进单个 Web 进程【E1】。这样可以避免阻塞 Web 进程，提高系统的可扩展性和可靠性。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_f358dba68d644d6c9a860978",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "跨多机调度 重计算 单个 Web 进程",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 7813.87,
+          "result": {
+            "query": "跨多机调度 重计算 单个 Web 进程",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "background-tasks#任务范围",
+                "source_title": "Background Tasks",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/background-tasks/",
+                "section_title": "任务范围",
+                "text": "后台任务适合短小、与当前进程资源相关的工作。重量级计算或需要跨进程、多机器调度的任务应考虑任务队列等外部系统，而不是把所有工作塞进单个 Web 进程。",
+                "score": 13.846084594726562,
+                "rerank_score": 13.846084594726562
+              },
+              {
+                "label": "E2",
+                "evidence_id": "background-tasks#返回后执行任务",
+                "source_title": "Background Tasks",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/background-tasks/",
+                "section_title": "返回后执行任务",
+                "text": "FastAPI 可以在响应返回后运行小型后台任务，例如写日志或发送通知。适合用于客户端不必等待完成的轻量操作；接口可以先返回结果，再执行任务。",
+                "score": 13.583730697631836,
+                "rerank_score": 13.583730697631836
+              },
+              {
+                "label": "E3",
+                "evidence_id": "response-status-code#常见状态码",
+                "source_title": "Response Status Code",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/response-status-code/",
+                "section_title": "常见状态码",
+                "text": "200 表示成功，也是常见默认状态码；201 表示已创建，常用于创建新记录；204 表示无内容，响应不应包含 body。400 到 499 表示客户端错误，例如 404 表示未找到；500 到 599 表示服务端错误。",
+                "score": 13.542618751525879,
+                "rerank_score": 13.542618751525879
+              }
+            ]
+          },
+          "tool_latency_ms": 1391.65
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2111,
+        "output_tokens": 157,
+        "total_tokens": 2268
+      },
+      "latency_ms": 30666.15,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.45,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "background-tasks#任务范围",
+        "middleware#使用边界",
+        "middleware#请求和响应的公共处理"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-004",
+      "question": "请求模型中的 tags 声明为 list[str] 后，FastAPI 会依据什么处理它？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "body-nested-models#列表字段"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "body-nested-models#列表字段",
+        "middleware#请求和响应的公共处理",
+        "request-body#请求体解析与校验"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E2",
+          "E2"
+        ],
+        "cited_evidence_ids": [
+          "body-nested-models#列表字段",
+          "request-body#请求体解析与校验",
+          "request-body#请求体解析与校验"
+        ],
+        "allowed_evidence_ids": [
+          "body-nested-models#列表字段",
+          "middleware#请求和响应的公共处理",
+          "request-body#请求体解析与校验"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "当请求模型中的 `tags` 字段声明为 `list[str]` 时，FastAPI 会根据 Pydantic 模型定义来解析和校验请求体【E1】。它会读取 JSON 请求体，在需要时转换类型，校验数据，并把解析后的模型对象交给路径操作函数【E2】。如果输入无效，FastAPI 会返回指出错误位置和内容的校验错误【E2】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_c030b4c2a018460fb0eb0cb3",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "tags list[str] 请求模型 处理",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 19657.21,
+          "result": {
+            "query": "tags list[str] 请求模型 处理",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "body-nested-models#列表字段",
+                "source_title": "Body Nested Models",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body-nested-models/",
+                "section_title": "列表字段",
+                "text": "Pydantic 模型字段可以声明为 `list[str]`、`set[str]` 等带元素类型的容器。FastAPI 会根据模型定义解析和校验请求体，并在 API 文档中展示字段类型。",
+                "score": 10.138490676879883,
+                "rerank_score": 10.138490676879883
+              },
+              {
+                "label": "E2",
+                "evidence_id": "request-body#请求体解析与校验",
+                "source_title": "Request Body",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body/",
+                "section_title": "请求体解析与校验",
+                "text": "使用模型类型声明请求体后，FastAPI 会读取 JSON 请求体、在需要时转换类型、校验数据，并把解析后的模型对象交给函数。如果输入无效，会返回指出错误位置和内容的校验错误；模型类型还提供编辑器类型提示。",
+                "score": 10.113435745239258,
+                "rerank_score": 10.113435745239258
+              },
+              {
+                "label": "E3",
+                "evidence_id": "middleware#请求和响应的公共处理",
+                "source_title": "Middleware",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/middleware/",
+                "section_title": "请求和响应的公共处理",
+                "text": "中间件会包裹每个请求：它可以在路径操作执行前读取或修改请求，在路径操作完成后处理响应，然后把响应返回给客户端。适合用于请求计时、日志、统一响应头或跨请求的通用逻辑。",
+                "score": 10.088025093078613,
+                "rerank_score": 10.088025093078613
+              }
+            ]
+          },
+          "tool_latency_ms": 1376.26
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2133,
+        "output_tokens": 165,
+        "total_tokens": 2298
+      },
+      "latency_ms": 35737.36,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.375,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "body-nested-models#列表字段",
+        "request-body#请求体解析与校验",
+        "request-body#使用-pydantic-声明请求体"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-005",
+      "question": "Offer 模型可以把 Item 模型作为字段吗？这样做还能获得哪些支持？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "body-nested-models#嵌套模型"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "body-nested-models#列表字段",
+        "body-nested-models#嵌套模型",
+        "request-body#模型字段是否必填"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E1",
+          "E2"
+        ],
+        "cited_evidence_ids": [
+          "body-nested-models#嵌套模型",
+          "body-nested-models#嵌套模型",
+          "body-nested-models#列表字段"
+        ],
+        "allowed_evidence_ids": [
+          "body-nested-models#列表字段",
+          "body-nested-models#嵌套模型",
+          "request-body#模型字段是否必填"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "是的，Offer 模型可以把 Item 模型作为字段【E1】。这样做可以获得编辑器提示、数据转换、校验和自动文档生成的支持【E1】。FastAPI 会根据模型定义解析和校验请求体，并在 API 文档中展示字段类型【E2】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "01a1a246b7d6fdeec795c802404cae34",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "Offer 模型 Item 模型作为字段 嵌套模型",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 5238.12,
+          "result": {
+            "query": "Offer 模型 Item 模型作为字段 嵌套模型",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "body-nested-models#嵌套模型",
+                "source_title": "Body Nested Models",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body-nested-models/",
+                "section_title": "嵌套模型",
+                "text": "一个 Pydantic 模型可以把另一个模型作为字段类型。例如 `Item` 可以包含可选的 `Image`，而 `Offer` 可以包含一组 `Item`。嵌套模型支持编辑器提示、数据转换、校验和自动文档生成。",
+                "score": 12.018948554992676,
+                "rerank_score": 12.018948554992676
+              },
+              {
+                "label": "E2",
+                "evidence_id": "body-nested-models#列表字段",
+                "source_title": "Body Nested Models",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body-nested-models/",
+                "section_title": "列表字段",
+                "text": "Pydantic 模型字段可以声明为 `list[str]`、`set[str]` 等带元素类型的容器。FastAPI 会根据模型定义解析和校验请求体，并在 API 文档中展示字段类型。",
+                "score": 11.786308288574219,
+                "rerank_score": 11.786308288574219
+              },
+              {
+                "label": "E3",
+                "evidence_id": "request-body#模型字段是否必填",
+                "source_title": "Request Body",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body/",
+                "section_title": "模型字段是否必填",
+                "text": "Pydantic 模型字段没有默认值时是必填字段；设置默认值后字段可省略。将字段默认值设置为 `None` 可以表达可选字段。FastAPI 会把请求 JSON 映射到模型字段，并在 OpenAPI schema 和交互式文档中展示模型结构。",
+                "score": 11.75678539276123,
+                "rerank_score": 11.75678539276123
+              }
+            ]
+          },
+          "tool_latency_ms": 1499.67
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2152,
+        "output_tokens": 134,
+        "total_tokens": 2286
+      },
+      "latency_ms": 16763.01,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.5263,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "body-nested-models#嵌套模型",
+        "body-nested-models#列表字段",
+        "request-body#模型字段是否必填"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-006",
+      "question": "同一路径操作同时收到 item_id、分页 query 和 JSON body 时，参数来源如何区分？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "body-nested-models#多层请求体"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "body-nested-models#多层请求体",
+        "dependencies#使用-depends",
+        "query-parameters#参数自动识别"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E2",
+          "E2",
+          "E1",
+          "E1"
+        ],
+        "cited_evidence_ids": [
+          "query-parameters#参数自动识别",
+          "query-parameters#参数自动识别",
+          "body-nested-models#多层请求体",
+          "body-nested-models#多层请求体"
+        ],
+        "allowed_evidence_ids": [
+          "body-nested-models#多层请求体",
+          "dependencies#使用-depends",
+          "query-parameters#参数自动识别"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "根据 FastAPI 文档，当同一路径操作同时收到 item_id、分页 query 和 JSON body 时，参数来源的区分规则如下：\n\n路径参数（如 `item_id`）根据是否出现在 URL 路径中被识别【E2】；其他简单类型的函数参数会被解释为查询参数（query parameter）【E2】；而 Pydantic 模型参数则从 JSON body 中读取【E1】。FastAPI 会根据参数是否出现在路径、是否是简单类型或是否是 Pydantic 模型，分别从路径、查询字符串或 JSON body 中读取【E1】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_93e53c82c3af4196a4af0ceb",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "同一路径操作同时收到 item_id 分页 query JSON body 参数来源区分",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 7135.53,
+          "result": {
+            "query": "同一路径操作同时收到 item_id 分页 query JSON body 参数来源区分",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "body-nested-models#多层请求体",
+                "source_title": "Body Nested Models",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body-nested-models/",
+                "section_title": "多层请求体",
+                "text": "路径参数、query 参数和 Pydantic 请求体可以同时出现在一个路径操作中。FastAPI 会根据参数是否出现在路径、是否是简单类型或是否是 Pydantic 模型，分别从路径、查询字符串或 JSON body 中读取。",
+                "score": 16.85846710205078,
+                "rerank_score": 16.85846710205078
+              },
+              {
+                "label": "E2",
+                "evidence_id": "query-parameters#参数自动识别",
+                "source_title": "Query Parameters",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/query-params/",
+                "section_title": "参数自动识别",
+                "text": "路径函数中，已经出现在 URL 路径里的参数会被识别为路径参数；其他函数参数会被解释为查询参数（query parameter）。查询参数位于 URL 的问号 `?` 之后，多个键值对用 `&` 连接，例如 `/items/?skip=0&limit=10`。",
+                "score": 16.685523986816406,
+                "rerank_score": 16.685523986816406
+              },
+              {
+                "label": "E3",
+                "evidence_id": "dependencies#使用-depends",
+                "source_title": "Dependencies",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/dependencies/",
+                "section_title": "使用 Depends",
+                "text": "可以用 `Depends` 声明一个依赖函数。依赖函数的参数仍然按照普通 FastAPI 参数规则解析，例如 query 参数和类型校验。路径操作只接收依赖返回的结果，不需要手动调用依赖函数。",
+                "score": 16.680194854736328,
+                "rerank_score": 16.680194854736328
+              }
+            ]
+          },
+          "tool_latency_ms": 1490.82
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2137,
+        "output_tokens": 210,
+        "total_tokens": 2347
+      },
+      "latency_ms": 17594.25,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.381,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "body-nested-models#多层请求体",
+        "query-parameters#参数自动识别",
+        "dependencies#使用-depends"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-008",
+      "question": "使用 Depends 后，路径操作还需要手动调用依赖函数吗？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "dependencies#使用-depends"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "dependencies#使用-depends",
+        "dependencies#依赖注入的作用",
+        "response-model#返回模型的作用"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E1",
+          "E2"
+        ],
+        "cited_evidence_ids": [
+          "dependencies#使用-depends",
+          "dependencies#使用-depends",
+          "dependencies#依赖注入的作用"
+        ],
+        "allowed_evidence_ids": [
+          "dependencies#使用-depends",
+          "dependencies#依赖注入的作用",
+          "response-model#返回模型的作用"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "不需要。使用 `Depends` 声明依赖函数后，FastAPI 会自动调用依赖函数，并将返回值传递给路径操作函数【E1】。路径操作函数只接收依赖返回的结果，不需要手动调用依赖函数【E1】。依赖注入机制让框架负责调用依赖函数，实现公共逻辑的复用【E2】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_2158a769bb4e4629b1be1172",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "Depends 路径操作 手动调用 依赖函数",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 8285.02,
+          "result": {
+            "query": "Depends 路径操作 手动调用 依赖函数",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "dependencies#使用-depends",
+                "source_title": "Dependencies",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/dependencies/",
+                "section_title": "使用 Depends",
+                "text": "可以用 `Depends` 声明一个依赖函数。依赖函数的参数仍然按照普通 FastAPI 参数规则解析，例如 query 参数和类型校验。路径操作只接收依赖返回的结果，不需要手动调用依赖函数。",
+                "score": 12.281766891479492,
+                "rerank_score": 12.281766891479492
+              },
+              {
+                "label": "E2",
+                "evidence_id": "dependencies#依赖注入的作用",
+                "source_title": "Dependencies",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/dependencies/",
+                "section_title": "依赖注入的作用",
+                "text": "FastAPI 的依赖注入允许路径操作声明自己需要的公共逻辑，例如共享查询参数、数据库连接或权限检查。框架会调用依赖函数，并把返回值传给路径操作；同一个依赖可以被多个接口复用。依赖的参数声明和校验也会进入 OpenAPI 文档。",
+                "score": 12.099593162536621,
+                "rerank_score": 12.099593162536621
+              },
+              {
+                "label": "E3",
+                "evidence_id": "response-model#返回模型的作用",
+                "source_title": "Response Model",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/response-model/",
+                "section_title": "返回模型的作用",
+                "text": "路径操作可以通过 `response_model` 声明响应数据的模型。FastAPI 会使用它生成文档、校验返回值，并把输出转换和过滤为模型允许的字段。",
+                "score": 12.015416145324707,
+                "rerank_score": 12.015416145324707
+              }
+            ]
+          },
+          "tool_latency_ms": 1476.86
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2078,
+        "output_tokens": 146,
+        "total_tokens": 2224
+      },
+      "latency_ms": 16338.47,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.75,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "dependencies#使用-depends",
+        "dependencies#依赖注入的作用",
+        "middleware#使用边界"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-009",
+      "question": "把权限检查放进依赖有什么工程好处？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "dependencies#依赖与安全"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "dependencies#依赖与安全",
+        "dependencies#依赖注入的作用",
+        "security-first-steps#这一步不等于完整认证"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E2"
+        ],
+        "cited_evidence_ids": [
+          "dependencies#依赖与安全",
+          "dependencies#依赖注入的作用"
+        ],
+        "allowed_evidence_ids": [
+          "dependencies#依赖与安全",
+          "dependencies#依赖注入的作用",
+          "security-first-steps#这一步不等于完整认证"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "把权限检查放进依赖的主要工程好处是：可以让多个接口共享同一套规则，保持请求参数和接口文档的一致性【E1】。依赖注入允许路径操作声明自己需要的公共逻辑，同一个依赖可以被多个接口复用，依赖的参数声明和校验也会进入 OpenAPI 文档【E2】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "01a1a2474608a66381779e9817716833",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "权限检查 依赖 工程好处",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 11030.85,
+          "result": {
+            "query": "权限检查 依赖 工程好处",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "dependencies#依赖与安全",
+                "source_title": "Dependencies",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/dependencies/",
+                "section_title": "依赖与安全",
+                "text": "依赖注入可以承载认证、授权、角色检查和共享资源管理。把权限检查放在依赖中，可以让多个接口共享同一套规则，同时保持请求参数和接口文档的一致性。",
+                "score": 9.352935791015625,
+                "rerank_score": 9.352935791015625
+              },
+              {
+                "label": "E2",
+                "evidence_id": "dependencies#依赖注入的作用",
+                "source_title": "Dependencies",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/dependencies/",
+                "section_title": "依赖注入的作用",
+                "text": "FastAPI 的依赖注入允许路径操作声明自己需要的公共逻辑，例如共享查询参数、数据库连接或权限检查。框架会调用依赖函数，并把返回值传给路径操作；同一个依赖可以被多个接口复用。依赖的参数声明和校验也会进入 OpenAPI 文档。",
+                "score": 9.291608810424805,
+                "rerank_score": 9.291608810424805
+              },
+              {
+                "label": "E3",
+                "evidence_id": "security-first-steps#这一步不等于完整认证",
+                "source_title": "Security First Steps",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/security/first-steps/",
+                "section_title": "这一步不等于完整认证",
+                "text": "读取 token 和校验 token 是两个步骤。基础安全依赖只负责提取并检查请求格式，不能自动证明 token 的签名、有效期或用户权限。生产系统还需要接入实际的认证服务和授权规则。",
+                "score": 9.263869285583496,
+                "rerank_score": 9.263869285583496
+              }
+            ]
+          },
+          "tool_latency_ms": 1395.67
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2102,
+        "output_tokens": 134,
+        "total_tokens": 2236
+      },
+      "latency_ms": 21416.21,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.4286,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "dependencies#依赖与安全",
+        "dependencies#依赖注入的作用",
+        "middleware#使用边界"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-011",
+      "question": "开发服务器启动后，想看 ReDoc 文档应访问哪个入口？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "first-steps#自动交互式文档"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "dependencies#依赖注入的作用",
+        "first-steps#自动交互式文档"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E1"
+        ],
+        "cited_evidence_ids": [
+          "first-steps#自动交互式文档",
+          "first-steps#自动交互式文档"
+        ],
+        "allowed_evidence_ids": [
+          "dependencies#依赖注入的作用",
+          "first-steps#自动交互式文档"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "启动开发服务器后，要查看 ReDoc 文档应访问 `/redoc` 入口【E1】。默认情况下，Swagger UI 文档在 `/docs`，OpenAPI schema 原始 JSON 在 `/openapi.json`【E1】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "01a1a24654913e9e1dc997a615a958e9",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "ReDoc 文档访问入口",
+            "top_k": 2
+          },
+          "model_round_latency_ms": 5720.15,
+          "result": {
+            "query": "ReDoc 文档访问入口",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "first-steps#自动交互式文档",
+                "source_title": "First Steps",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/first-steps/",
+                "section_title": "自动交互式文档",
+                "text": "启动开发服务器后，默认可以在 `/docs` 查看由 Swagger UI 提供的交互式 API 文档，也可以在 `/redoc` 查看另一套文档界面。FastAPI 会根据 API 自动生成 OpenAPI schema，默认可通过 `/openapi.json` 查看原始 JSON 描述。",
+                "score": 8.47881031036377,
+                "rerank_score": 8.47881031036377
+              },
+              {
+                "label": "E2",
+                "evidence_id": "dependencies#依赖注入的作用",
+                "source_title": "Dependencies",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/dependencies/",
+                "section_title": "依赖注入的作用",
+                "text": "FastAPI 的依赖注入允许路径操作声明自己需要的公共逻辑，例如共享查询参数、数据库连接或权限检查。框架会调用依赖函数，并把返回值传给路径操作；同一个依赖可以被多个接口复用。依赖的参数声明和校验也会进入 OpenAPI 文档。",
+                "score": 8.371499061584473,
+                "rerank_score": 8.371499061584473
+              }
+            ]
+          },
+          "tool_latency_ms": 1414.95
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2059,
+        "output_tokens": 125,
+        "total_tokens": 2184
+      },
+      "latency_ms": 36132.04,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.4375,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "first-steps#自动交互式文档",
+        "response-status-code#常见状态码",
+        "dependencies#依赖注入的作用"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-012",
+      "question": "为什么 OpenAPI schema 不只是给人看的文档？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "first-steps#openapi-的用途"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "first-steps#openapi-的用途",
+        "first-steps#自动交互式文档",
+        "request-body#模型字段是否必填"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E2"
+        ],
+        "cited_evidence_ids": [
+          "first-steps#openapi-的用途",
+          "first-steps#自动交互式文档"
+        ],
+        "allowed_evidence_ids": [
+          "first-steps#openapi-的用途",
+          "first-steps#自动交互式文档",
+          "request-body#模型字段是否必填"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "OpenAPI schema 不只是给人看的文档，它还为自动交互式文档提供依据，并可用于生成与 API 通信的客户端代码，例如前端、移动端或 IoT 客户端【E1】。FastAPI 会根据 API 自动生成 OpenAPI schema，通过 `/openapi.json` 可查看原始 JSON 描述【E2】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_f109813b37ec4de1a472b48c",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "OpenAPI schema 不只是给人看的文档",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 7388.06,
+          "result": {
+            "query": "OpenAPI schema 不只是给人看的文档",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "first-steps#openapi-的用途",
+                "source_title": "First Steps",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/first-steps/",
+                "section_title": "OpenAPI 的用途",
+                "text": "OpenAPI schema 描述 API 的路径、参数以及输入和输出数据结构。它为自动交互式文档提供依据，也可用于生成与 API 通信的客户端代码，例如前端、移动端或 IoT 客户端。",
+                "score": 9.313711166381836,
+                "rerank_score": 9.313711166381836
+              },
+              {
+                "label": "E2",
+                "evidence_id": "first-steps#自动交互式文档",
+                "source_title": "First Steps",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/first-steps/",
+                "section_title": "自动交互式文档",
+                "text": "启动开发服务器后，默认可以在 `/docs` 查看由 Swagger UI 提供的交互式 API 文档，也可以在 `/redoc` 查看另一套文档界面。FastAPI 会根据 API 自动生成 OpenAPI schema，默认可通过 `/openapi.json` 查看原始 JSON 描述。",
+                "score": 9.263643264770508,
+                "rerank_score": 9.263643264770508
+              },
+              {
+                "label": "E3",
+                "evidence_id": "request-body#模型字段是否必填",
+                "source_title": "Request Body",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body/",
+                "section_title": "模型字段是否必填",
+                "text": "Pydantic 模型字段没有默认值时是必填字段；设置默认值后字段可省略。将字段默认值设置为 `None` 可以表达可选字段。FastAPI 会把请求 JSON 映射到模型字段，并在 OpenAPI schema 和交互式文档中展示模型结构。",
+                "score": 9.206077575683594,
+                "rerank_score": 9.206077575683594
+              }
+            ]
+          },
+          "tool_latency_ms": 1368.61
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2106,
+        "output_tokens": 145,
+        "total_tokens": 2251
+      },
+      "latency_ms": 16356.23,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.2727,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "first-steps#openapi-的用途",
+        "first-steps#自动交互式文档",
+        "request-body#模型字段是否必填"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-013",
+      "question": "GET、POST、PUT、DELETE 的常见用途是不是 FastAPI 的强制规则？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "first-steps#路径操作"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "first-steps#路径操作",
+        "request-body#请求体与-http-方法",
+        "response-status-code#常见状态码"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E1"
+        ],
+        "cited_evidence_ids": [
+          "first-steps#路径操作",
+          "first-steps#路径操作"
+        ],
+        "allowed_evidence_ids": [
+          "first-steps#路径操作",
+          "request-body#请求体与-http-方法",
+          "response-status-code#常见状态码"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "不是强制规则。根据 FastAPI 文档，GET 通常用于读取，POST 通常用于创建，PUT 用于更新，DELETE 用于删除，但这些只是常见约定【E1】。FastAPI 不强制每个 HTTP 方法只能用于某个特定目的【E1】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_033a53a65a7c486ca4eff0a7",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "GET POST PUT DELETE 常见用途 强制规则",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 4600.46,
+          "result": {
+            "query": "GET POST PUT DELETE 常见用途 强制规则",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "first-steps#路径操作",
+                "source_title": "First Steps",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/first-steps/",
+                "section_title": "路径操作",
+                "text": "路径是 URL 中主机名之后的路由部分，例如 `/items/foo`；操作指 HTTP 方法，例如 GET、POST、PUT 或 DELETE。路径操作装饰器（例如 `@app.get(\"/\")`）把路径和方法关联到其下方的函数。GET 通常用于读取，POST 通常用于创建，PUT 用于更新，DELETE 用于删除；这些是常见约定，FastAPI 不强制每个方法只能用于某个目的。",
+                "score": 12.13210678100586,
+                "rerank_score": 12.13210678100586
+              },
+              {
+                "label": "E2",
+                "evidence_id": "request-body#请求体与-http-方法",
+                "source_title": "Request Body",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body/",
+                "section_title": "请求体与 HTTP 方法",
+                "text": "发送请求体常用 POST，也可以用于 PUT、DELETE 或 PATCH。GET 请求携带请求体在规范中行为未定义；FastAPI 虽支持极少数复杂场景，但不鼓励这样做，Swagger UI 也不会显示 GET 请求体文档，且中间代理可能不支持。",
+                "score": 12.105537414550781,
+                "rerank_score": 12.105537414550781
+              },
+              {
+                "label": "E3",
+                "evidence_id": "response-status-code#常见状态码",
+                "source_title": "Response Status Code",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/response-status-code/",
+                "section_title": "常见状态码",
+                "text": "200 表示成功，也是常见默认状态码；201 表示已创建，常用于创建新记录；204 表示无内容，响应不应包含 body。400 到 499 表示客户端错误，例如 404 表示未找到；500 到 599 表示服务端错误。",
+                "score": 11.991952896118164,
+                "rerank_score": 11.991952896118164
+              }
+            ]
+          },
+          "tool_latency_ms": 1481.41
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2174,
+        "output_tokens": 134,
+        "total_tokens": 2308
+      },
+      "latency_ms": 12799.55,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.4,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "first-steps#路径操作",
+        "request-body#请求体与-http-方法",
+        "background-tasks#返回后执行任务"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-015",
+      "question": "如果异常发生在路径操作调用的工具函数中，FastAPI 会如何处理？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "handling-errors#抛出异常而不是返回异常"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "first-steps#路径操作",
+        "handling-errors#抛出异常而不是返回异常",
+        "response-model#返回模型的作用"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1"
+        ],
+        "cited_evidence_ids": [
+          "handling-errors#抛出异常而不是返回异常"
+        ],
+        "allowed_evidence_ids": [
+          "first-steps#路径操作",
+          "handling-errors#抛出异常而不是返回异常",
+          "response-model#返回模型的作用"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "如果异常发生在路径操作调用的工具函数中，FastAPI 会立即终止当前请求处理，并将对应的 HTTP 错误返回给客户端【E1】。这是因为 `HTTPException` 是 Python 异常，使用 `raise` 抛出时会中断执行流程，即使异常发生在工具函数中，FastAPI 也能捕获并处理。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_06ce79735dd74f65a37cebc9",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "异常 路径操作 工具函数 处理",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 6617.57,
+          "result": {
+            "query": "异常 路径操作 工具函数 处理",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "handling-errors#抛出异常而不是返回异常",
+                "source_title": "Handling Errors",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/handling-errors/",
+                "section_title": "抛出异常而不是返回异常",
+                "text": "`HTTPException` 是 Python 异常，因此应使用 `raise`，而不是 `return`。抛出异常会立即终止当前请求处理，即使它发生在路径操作调用的工具函数中，FastAPI 也会将对应 HTTP 错误返回客户端。",
+                "score": 10.289545059204102,
+                "rerank_score": 10.289545059204102
+              },
+              {
+                "label": "E2",
+                "evidence_id": "response-model#返回模型的作用",
+                "source_title": "Response Model",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/response-model/",
+                "section_title": "返回模型的作用",
+                "text": "路径操作可以通过 `response_model` 声明响应数据的模型。FastAPI 会使用它生成文档、校验返回值，并把输出转换和过滤为模型允许的字段。",
+                "score": 10.209880828857422,
+                "rerank_score": 10.209880828857422
+              },
+              {
+                "label": "E3",
+                "evidence_id": "first-steps#路径操作",
+                "source_title": "First Steps",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/first-steps/",
+                "section_title": "路径操作",
+                "text": "路径是 URL 中主机名之后的路由部分，例如 `/items/foo`；操作指 HTTP 方法，例如 GET、POST、PUT 或 DELETE。路径操作装饰器（例如 `@app.get(\"/\")`）把路径和方法关联到其下方的函数。GET 通常用于读取，POST 通常用于创建，PUT 用于更新，DELETE 用于删除；这些是常见约定，FastAPI 不强制每个方法只能用于某个目的。",
+                "score": 10.193940162658691,
+                "rerank_score": 10.193940162658691
+              }
+            ]
+          },
+          "tool_latency_ms": 1478.77
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2133,
+        "output_tokens": 144,
+        "total_tokens": 2277
+      },
+      "latency_ms": 14609.49,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.7619,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "handling-errors#抛出异常而不是返回异常",
+        "handling-errors#httpexception",
+        "response-status-code#设置响应状态码"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-016",
+      "question": "HTTPException 的 detail 能否承载结构化错误信息？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "handling-errors#自定义错误详情"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "handling-errors#httpexception",
+        "handling-errors#抛出异常而不是返回异常",
+        "handling-errors#自定义错误详情"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1"
+        ],
+        "cited_evidence_ids": [
+          "handling-errors#自定义错误详情"
+        ],
+        "allowed_evidence_ids": [
+          "handling-errors#httpexception",
+          "handling-errors#抛出异常而不是返回异常",
+          "handling-errors#自定义错误详情"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "是的，HTTPException 的 detail 参数可以承载结构化错误信息。根据文档，detail 可以是任何能够转换为 JSON 的值，不限于字符串，也可以是字典或列表【E1】。这意味着你可以传递如 `{\"error\": \"not_found\", \"message\": \"Item not found\", \"item_id\": 123}` 这样的结构化数据。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_31b6a81be3e946dfa7f01837",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "HTTPException detail 结构化错误信息",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 3830.24,
+          "result": {
+            "query": "HTTPException detail 结构化错误信息",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "handling-errors#自定义错误详情",
+                "source_title": "Handling Errors",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/handling-errors/",
+                "section_title": "自定义错误详情",
+                "text": "`HTTPException` 的 `detail` 可以是任何能够转换为 JSON 的值，不限于字符串，也可以是字典或列表。构造异常时还可以附加 HTTP 响应头。",
+                "score": 9.391202926635742,
+                "rerank_score": 9.391202926635742
+              },
+              {
+                "label": "E2",
+                "evidence_id": "handling-errors#httpexception",
+                "source_title": "Handling Errors",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/handling-errors/",
+                "section_title": "HTTPException",
+                "text": "在路径操作中需要向客户端报告 HTTP 错误时，可以从 FastAPI 导入并抛出 `HTTPException`。例如查找不到资源时抛出 `HTTPException(status_code=404, detail=\"Item not found\")`，客户端会收到 404 和包含 detail 的 JSON 错误响应。",
+                "score": 9.317707061767578,
+                "rerank_score": 9.317707061767578
+              },
+              {
+                "label": "E3",
+                "evidence_id": "handling-errors#抛出异常而不是返回异常",
+                "source_title": "Handling Errors",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/handling-errors/",
+                "section_title": "抛出异常而不是返回异常",
+                "text": "`HTTPException` 是 Python 异常，因此应使用 `raise`，而不是 `return`。抛出异常会立即终止当前请求处理，即使它发生在路径操作调用的工具函数中，FastAPI 也会将对应 HTTP 错误返回客户端。",
+                "score": 9.273383140563965,
+                "rerank_score": 9.273383140563965
+              }
+            ]
+          },
+          "tool_latency_ms": 1438.03
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2089,
+        "output_tokens": 145,
+        "total_tokens": 2234
+      },
+      "latency_ms": 14127.86,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.2727,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "handling-errors#自定义错误详情",
+        "handling-errors#httpexception",
+        "handling-errors#抛出异常而不是返回异常"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-017",
+      "question": "RequestValidationError 主要表示哪类失败？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "handling-errors#自定义异常处理"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "handling-errors#自定义异常处理",
+        "response-status-code#常见状态码"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1"
+        ],
+        "cited_evidence_ids": [
+          "handling-errors#自定义异常处理"
+        ],
+        "allowed_evidence_ids": [
+          "handling-errors#自定义异常处理",
+          "response-status-code#常见状态码"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "根据文档，`RequestValidationError` 主要表示**请求数据校验失败**【E1】。这是 FastAPI 在请求数据（如路径参数、查询参数、请求体等）不符合预期格式或验证规则时抛出的异常。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_1d3c303bee244dfeb853e2ce",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "RequestValidationError 表示什么失败",
+            "top_k": 2
+          },
+          "model_round_latency_ms": 3954.73,
+          "result": {
+            "query": "RequestValidationError 表示什么失败",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "handling-errors#自定义异常处理",
+                "source_title": "Handling Errors",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/handling-errors/",
+                "section_title": "自定义异常处理",
+                "text": "可以使用 `@app.exception_handler()` 为自定义异常注册全局处理函数。FastAPI 也允许覆盖默认异常处理器，包括请求校验异常处理器；`RequestValidationError` 与请求数据校验失败有关，可按需要定制它的响应。",
+                "score": 7.512404441833496,
+                "rerank_score": 7.512404441833496
+              },
+              {
+                "label": "E2",
+                "evidence_id": "response-status-code#常见状态码",
+                "source_title": "Response Status Code",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/response-status-code/",
+                "section_title": "常见状态码",
+                "text": "200 表示成功，也是常见默认状态码；201 表示已创建，常用于创建新记录；204 表示无内容，响应不应包含 body。400 到 499 表示客户端错误，例如 404 表示未找到；500 到 599 表示服务端错误。",
+                "score": 7.4331583976745605,
+                "rerank_score": 7.4331583976745605
+              }
+            ]
+          },
+          "tool_latency_ms": 1469.87
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2004,
+        "output_tokens": 123,
+        "total_tokens": 2127
+      },
+      "latency_ms": 9959.05,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.25,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "handling-errors#自定义异常处理",
+        "response-status-code#常见状态码",
+        "request-body#请求体解析与校验"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-018",
+      "question": "请求计时和统一响应头为什么适合放在中间件？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "middleware#请求和响应的公共处理"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "middleware#使用边界",
+        "middleware#请求和响应的公共处理",
+        "request-body#请求体与-http-方法"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E1"
+        ],
+        "cited_evidence_ids": [
+          "middleware#请求和响应的公共处理",
+          "middleware#请求和响应的公共处理"
+        ],
+        "allowed_evidence_ids": [
+          "middleware#使用边界",
+          "middleware#请求和响应的公共处理",
+          "request-body#请求体与-http-方法"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "请求计时和统一响应头适合放在中间件，是因为中间件会包裹每个请求，可以在路径操作执行前读取或修改请求，在路径操作完成后处理响应，然后把响应返回给客户端【E1】。这种机制使得中间件成为处理跨请求的通用逻辑的理想位置，比如计时和统一响应头设置【E1】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_eddd5d50790f40578b2dd941",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "中间件 请求计时 响应头",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 4449.75,
+          "result": {
+            "query": "中间件 请求计时 响应头",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "middleware#请求和响应的公共处理",
+                "source_title": "Middleware",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/middleware/",
+                "section_title": "请求和响应的公共处理",
+                "text": "中间件会包裹每个请求：它可以在路径操作执行前读取或修改请求，在路径操作完成后处理响应，然后把响应返回给客户端。适合用于请求计时、日志、统一响应头或跨请求的通用逻辑。",
+                "score": 10.455543518066406,
+                "rerank_score": 10.455543518066406
+              },
+              {
+                "label": "E2",
+                "evidence_id": "middleware#使用边界",
+                "source_title": "Middleware",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/middleware/",
+                "section_title": "使用边界",
+                "text": "中间件作用于整个应用或匹配范围内的请求，因此不应把只属于某一个接口的业务规则全部放进中间件。需要依赖注入、参数校验或接口级权限时，应优先使用路径操作和依赖系统。",
+                "score": 10.286235809326172,
+                "rerank_score": 10.286235809326172
+              },
+              {
+                "label": "E3",
+                "evidence_id": "request-body#请求体与-http-方法",
+                "source_title": "Request Body",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body/",
+                "section_title": "请求体与 HTTP 方法",
+                "text": "发送请求体常用 POST，也可以用于 PUT、DELETE 或 PATCH。GET 请求携带请求体在规范中行为未定义；FastAPI 虽支持极少数复杂场景，但不鼓励这样做，Swagger UI 也不会显示 GET 请求体文档，且中间代理可能不支持。",
+                "score": 10.222673416137695,
+                "rerank_score": 10.222673416137695
+              }
+            ]
+          },
+          "tool_latency_ms": 1208.67
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2092,
+        "output_tokens": 145,
+        "total_tokens": 2237
+      },
+      "latency_ms": 15170.87,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.5556,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "middleware#请求和响应的公共处理",
+        "middleware#使用边界",
+        "request-body#请求体与-http-方法"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-019",
+      "question": "只属于一个接口的权限规则为什么不宜全部放进全局中间件？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "middleware#使用边界"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "dependencies#依赖与安全",
+        "middleware#使用边界",
+        "middleware#请求和响应的公共处理"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E1",
+          "E2"
+        ],
+        "cited_evidence_ids": [
+          "middleware#使用边界",
+          "middleware#使用边界",
+          "dependencies#依赖与安全"
+        ],
+        "allowed_evidence_ids": [
+          "dependencies#依赖与安全",
+          "middleware#使用边界",
+          "middleware#请求和响应的公共处理"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "只属于一个接口的权限规则不宜全部放进全局中间件，因为中间件作用于整个应用或匹配范围内的请求【E1】。把只属于某一个接口的业务规则放进中间件会导致不必要的处理开销，并且破坏了接口的封装性。对于接口级权限检查，应优先使用路径操作和依赖系统【E1】，这样可以让多个接口共享同一套规则，同时保持请求参数和接口文档的一致性【E2】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_1cd68aed1039458a8b24f40b",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "全局中间件 权限规则 接口 特定",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 4559.72,
+          "result": {
+            "query": "全局中间件 权限规则 接口 特定",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "middleware#使用边界",
+                "source_title": "Middleware",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/middleware/",
+                "section_title": "使用边界",
+                "text": "中间件作用于整个应用或匹配范围内的请求，因此不应把只属于某一个接口的业务规则全部放进中间件。需要依赖注入、参数校验或接口级权限时，应优先使用路径操作和依赖系统。",
+                "score": 12.102919578552246,
+                "rerank_score": 12.102919578552246
+              },
+              {
+                "label": "E2",
+                "evidence_id": "dependencies#依赖与安全",
+                "source_title": "Dependencies",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/dependencies/",
+                "section_title": "依赖与安全",
+                "text": "依赖注入可以承载认证、授权、角色检查和共享资源管理。把权限检查放在依赖中，可以让多个接口共享同一套规则，同时保持请求参数和接口文档的一致性。",
+                "score": 12.002481460571289,
+                "rerank_score": 12.002481460571289
+              },
+              {
+                "label": "E3",
+                "evidence_id": "middleware#请求和响应的公共处理",
+                "source_title": "Middleware",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/middleware/",
+                "section_title": "请求和响应的公共处理",
+                "text": "中间件会包裹每个请求：它可以在路径操作执行前读取或修改请求，在路径操作完成后处理响应，然后把响应返回给客户端。适合用于请求计时、日志、统一响应头或跨请求的通用逻辑。",
+                "score": 11.959772109985352,
+                "rerank_score": 11.959772109985352
+              }
+            ]
+          },
+          "tool_latency_ms": 1492.47
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2072,
+        "output_tokens": 165,
+        "total_tokens": 2237
+      },
+      "latency_ms": 23253.8,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.5217,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "middleware#使用边界",
+        "dependencies#依赖与安全",
+        "security-first-steps#这一步不等于完整认证"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-020",
+      "question": "URL 中未出现在路径模板里的函数参数通常会被 FastAPI 解释为什么？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "query-parameters#参数自动识别"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "body-nested-models#多层请求体",
+        "first-steps#路径操作",
+        "query-parameters#参数自动识别"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E1",
+          "E3"
+        ],
+        "cited_evidence_ids": [
+          "query-parameters#参数自动识别",
+          "query-parameters#参数自动识别",
+          "body-nested-models#多层请求体"
+        ],
+        "allowed_evidence_ids": [
+          "body-nested-models#多层请求体",
+          "first-steps#路径操作",
+          "query-parameters#参数自动识别"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "URL 中未出现在路径模板里的函数参数通常会被 FastAPI 解释为查询参数（query parameter）【E1】。这些参数位于 URL 的问号 `?` 之后，多个键值对用 `&` 连接，例如 `/items/?skip=0&limit=10`【E1】。FastAPI 会根据参数是否出现在路径中来区分路径参数和查询参数【E3】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_21c5b2dc8a0e4231bde75669",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "URL 中未出现在路径模板里的函数参数 FastAPI 解释",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 7184.45,
+          "result": {
+            "query": "URL 中未出现在路径模板里的函数参数 FastAPI 解释",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "query-parameters#参数自动识别",
+                "source_title": "Query Parameters",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/query-params/",
+                "section_title": "参数自动识别",
+                "text": "路径函数中，已经出现在 URL 路径里的参数会被识别为路径参数；其他函数参数会被解释为查询参数（query parameter）。查询参数位于 URL 的问号 `?` 之后，多个键值对用 `&` 连接，例如 `/items/?skip=0&limit=10`。",
+                "score": 14.250537872314453,
+                "rerank_score": 14.250537872314453
+              },
+              {
+                "label": "E2",
+                "evidence_id": "first-steps#路径操作",
+                "source_title": "First Steps",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/first-steps/",
+                "section_title": "路径操作",
+                "text": "路径是 URL 中主机名之后的路由部分，例如 `/items/foo`；操作指 HTTP 方法，例如 GET、POST、PUT 或 DELETE。路径操作装饰器（例如 `@app.get(\"/\")`）把路径和方法关联到其下方的函数。GET 通常用于读取，POST 通常用于创建，PUT 用于更新，DELETE 用于删除；这些是常见约定，FastAPI 不强制每个方法只能用于某个目的。",
+                "score": 14.235387802124023,
+                "rerank_score": 14.235387802124023
+              },
+              {
+                "label": "E3",
+                "evidence_id": "body-nested-models#多层请求体",
+                "source_title": "Body Nested Models",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body-nested-models/",
+                "section_title": "多层请求体",
+                "text": "路径参数、query 参数和 Pydantic 请求体可以同时出现在一个路径操作中。FastAPI 会根据参数是否出现在路径、是否是简单类型或是否是 Pydantic 模型，分别从路径、查询字符串或 JSON body 中读取。",
+                "score": 14.212078094482422,
+                "rerank_score": 14.212078094482422
+              }
+            ]
+          },
+          "tool_latency_ms": 1486.45
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2173,
+        "output_tokens": 167,
+        "total_tokens": 2340
+      },
+      "latency_ms": 19000.07,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.5238,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "query-parameters#参数自动识别",
+        "first-steps#路径操作",
+        "query-parameters#必填查询参数"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-022",
+      "question": "URL 中的 query 值本来是字符串，FastAPI 如何得到 bool 类型？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "query-parameters#类型转换与校验"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "body-nested-models#多层请求体",
+        "query-parameters#参数自动识别",
+        "query-parameters#类型转换与校验"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E1"
+        ],
+        "cited_evidence_ids": [
+          "query-parameters#类型转换与校验",
+          "query-parameters#类型转换与校验"
+        ],
+        "allowed_evidence_ids": [
+          "body-nested-models#多层请求体",
+          "query-parameters#参数自动识别",
+          "query-parameters#类型转换与校验"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "FastAPI 通过类型声明自动将 URL 中的字符串值转换为相应的 Python 类型。当查询参数声明为 `bool` 类型时，FastAPI 会将 `1`、`True`、`true`、`on` 或 `yes` 等字符串值解析为 `True`【E1】。这种类型转换和校验功能是 FastAPI 的核心特性之一，它根据参数的类型注解自动处理数据转换【E1】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_3b87fbd2887a4350b0dc4ccd",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "query 字符串转换为 bool 类型",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 6511.06,
+          "result": {
+            "query": "query 字符串转换为 bool 类型",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "query-parameters#类型转换与校验",
+                "source_title": "Query Parameters",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/query-params/",
+                "section_title": "类型转换与校验",
+                "text": "给查询参数声明 Python 类型后，FastAPI 会把 URL 中的字符串值转换为相应类型，并进行校验。例如把 `short` 声明为 `bool` 后，`short=1`、`short=True`、`short=true`、`short=on` 或 `short=yes` 都可解析为 True；类型声明也支持编辑器提示和自动文档。",
+                "score": 8.423057556152344,
+                "rerank_score": 8.423057556152344
+              },
+              {
+                "label": "E2",
+                "evidence_id": "body-nested-models#多层请求体",
+                "source_title": "Body Nested Models",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body-nested-models/",
+                "section_title": "多层请求体",
+                "text": "路径参数、query 参数和 Pydantic 请求体可以同时出现在一个路径操作中。FastAPI 会根据参数是否出现在路径、是否是简单类型或是否是 Pydantic 模型，分别从路径、查询字符串或 JSON body 中读取。",
+                "score": 8.355252265930176,
+                "rerank_score": 8.355252265930176
+              },
+              {
+                "label": "E3",
+                "evidence_id": "query-parameters#参数自动识别",
+                "source_title": "Query Parameters",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/query-params/",
+                "section_title": "参数自动识别",
+                "text": "路径函数中，已经出现在 URL 路径里的参数会被识别为路径参数；其他函数参数会被解释为查询参数（query parameter）。查询参数位于 URL 的问号 `?` 之后，多个键值对用 `&` 连接，例如 `/items/?skip=0&limit=10`。",
+                "score": 8.330475807189941,
+                "rerank_score": 8.330475807189941
+              }
+            ]
+          },
+          "tool_latency_ms": 1441.77
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2147,
+        "output_tokens": 168,
+        "total_tokens": 2315
+      },
+      "latency_ms": 29461.35,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.4615,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "query-parameters#类型转换与校验",
+        "body-nested-models#多层请求体",
+        "query-parameters#必填查询参数"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-023",
+      "question": "query 参数的类型和默认值共同影响哪些行为？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "query-parameters#必填查询参数"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "query-parameters#必填查询参数",
+        "query-parameters#类型转换与校验",
+        "query-parameters#默认值与可选参数"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E1",
+          "E3"
+        ],
+        "cited_evidence_ids": [
+          "query-parameters#必填查询参数",
+          "query-parameters#必填查询参数",
+          "query-parameters#类型转换与校验"
+        ],
+        "allowed_evidence_ids": [
+          "query-parameters#必填查询参数",
+          "query-parameters#类型转换与校验",
+          "query-parameters#默认值与可选参数"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "query 参数的类型和默认值共同影响 FastAPI 如何解析参数、是否允许省略以及如何验证输入【E1】。设置默认值（包括 `None`）可以使参数可选，否则就是必填查询参数【E1】。类型声明还决定了 FastAPI 如何将 URL 中的字符串值转换为相应类型并进行校验【E3】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_cb8445d54c594eb0bf98e1fd",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "query 参数类型 默认值 影响行为",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 15611.37,
+          "result": {
+            "query": "query 参数类型 默认值 影响行为",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "query-parameters#必填查询参数",
+                "source_title": "Query Parameters",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/query-params/",
+                "section_title": "必填查询参数",
+                "text": "非路径参数若没有默认值就是必填查询参数；设置默认值（包括 `None`）则不是必填。函数签名中的类型和默认值共同决定 FastAPI 如何解析参数、是否允许省略以及如何验证输入。",
+                "score": 10.322885513305664,
+                "rerank_score": 10.322885513305664
+              },
+              {
+                "label": "E2",
+                "evidence_id": "query-parameters#默认值与可选参数",
+                "source_title": "Query Parameters",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/query-params/",
+                "section_title": "默认值与可选参数",
+                "text": "查询参数可以设置默认值，因此可以不出现在请求 URL 中。例如 `skip: int = 0` 和 `limit: int = 10` 在省略时分别使用 0 和 10。若 URL 只提供 `skip=20`，未提供的 `limit` 仍使用默认值 10。将参数默认值设为 `None` 可使其可选。",
+                "score": 10.311328887939453,
+                "rerank_score": 10.311328887939453
+              },
+              {
+                "label": "E3",
+                "evidence_id": "query-parameters#类型转换与校验",
+                "source_title": "Query Parameters",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/query-params/",
+                "section_title": "类型转换与校验",
+                "text": "给查询参数声明 Python 类型后，FastAPI 会把 URL 中的字符串值转换为相应类型，并进行校验。例如把 `short` 声明为 `bool` 后，`short=1`、`short=True`、`short=true`、`short=on` 或 `short=yes` 都可解析为 True；类型声明也支持编辑器提示和自动文档。",
+                "score": 10.21420955657959,
+                "rerank_score": 10.21420955657959
+              }
+            ]
+          },
+          "tool_latency_ms": 1378.75
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2199,
+        "output_tokens": 151,
+        "total_tokens": 2350
+      },
+      "latency_ms": 29187.8,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.5625,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "query-parameters#必填查询参数",
+        "query-parameters#默认值与可选参数",
+        "body-nested-models#多层请求体"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-024",
+      "question": "为什么请求体模型通常继承 Pydantic BaseModel？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "request-body#使用-pydantic-声明请求体"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "body-nested-models#多层请求体",
+        "request-body#使用-pydantic-声明请求体"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E2"
+        ],
+        "cited_evidence_ids": [
+          "request-body#使用-pydantic-声明请求体",
+          "body-nested-models#多层请求体"
+        ],
+        "allowed_evidence_ids": [
+          "body-nested-models#多层请求体",
+          "request-body#使用-pydantic-声明请求体"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "请求体模型继承 Pydantic BaseModel 是因为 FastAPI 使用 Pydantic 来处理请求体的数据验证、序列化和文档生成【E1】。通过继承 BaseModel，FastAPI 能够自动从 JSON 请求体中读取数据，并根据模型定义进行类型验证和转换【E2】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "01a1a24b312a08a5aaae85e7c389a3b6",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "请求体模型继承 Pydantic BaseModel 原因",
+            "top_k": 2
+          },
+          "model_round_latency_ms": 6257.01,
+          "result": {
+            "query": "请求体模型继承 Pydantic BaseModel 原因",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "request-body#使用-pydantic-声明请求体",
+                "source_title": "Request Body",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body/",
+                "section_title": "使用 Pydantic 声明请求体",
+                "text": "客户端需要向 API 发送数据时，可以把数据放在请求体（request body）中。FastAPI 通常使用继承自 Pydantic `BaseModel` 的类声明请求体结构，再把该模型类型声明为路径操作函数的参数。模型字段可使用标准 Python 类型。",
+                "score": 11.239733695983887,
+                "rerank_score": 11.239733695983887
+              },
+              {
+                "label": "E2",
+                "evidence_id": "body-nested-models#多层请求体",
+                "source_title": "Body Nested Models",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body-nested-models/",
+                "section_title": "多层请求体",
+                "text": "路径参数、query 参数和 Pydantic 请求体可以同时出现在一个路径操作中。FastAPI 会根据参数是否出现在路径、是否是简单类型或是否是 Pydantic 模型，分别从路径、查询字符串或 JSON body 中读取。",
+                "score": 11.134639739990234,
+                "rerank_score": 11.134639739990234
+              }
+            ]
+          },
+          "tool_latency_ms": 1406.71
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2068,
+        "output_tokens": 139,
+        "total_tokens": 2207
+      },
+      "latency_ms": 19932.01,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.5455,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "request-body#使用-pydantic-声明请求体",
+        "body-nested-models#多层请求体",
+        "body-nested-models#列表字段"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-025",
+      "question": "Pydantic 字段没有默认值时，客户端是否可以省略？",
+      "task_type": "rag",
+      "status": "completed",
+      "expected_evidence": [
+        "request-body#模型字段是否必填"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": true,
+      "retrieval_call_count": 1,
+      "retrieved_evidence_ids": [
+        "query-parameters#必填查询参数",
+        "query-parameters#默认值与可选参数",
+        "request-body#模型字段是否必填"
+      ],
+      "retrieval_hit": true,
+      "citation_check": {
+        "supported": true,
+        "cited_labels": [
+          "E1",
+          "E1",
+          "E1"
+        ],
+        "cited_evidence_ids": [
+          "request-body#模型字段是否必填",
+          "request-body#模型字段是否必填",
+          "request-body#模型字段是否必填"
+        ],
+        "allowed_evidence_ids": [
+          "query-parameters#必填查询参数",
+          "query-parameters#默认值与可选参数",
+          "request-body#模型字段是否必填"
+        ],
+        "unsupported_citations": []
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": {
+        "code_blocks_checked": 0,
+        "unsupported_code_blocks": 0,
+        "answer_modified": false
+      },
+      "answer": "根据 FastAPI 文档，Pydantic 模型字段没有默认值时是必填字段，客户端不能省略【E1】。设置默认值后字段可省略，将字段默认值设置为 `None` 可以表达可选字段【E1】。FastAPI 会把请求 JSON 映射到模型字段，并在 OpenAPI schema 和交互式文档中展示模型结构【E1】。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "01a1a24ba5ff829094fb25c31058a12b",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "Pydantic 字段没有默认值 客户端是否可以省略",
+            "top_k": 3
+          },
+          "model_round_latency_ms": 16335.22,
+          "result": {
+            "query": "Pydantic 字段没有默认值 客户端是否可以省略",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "request-body#模型字段是否必填",
+                "source_title": "Request Body",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body/",
+                "section_title": "模型字段是否必填",
+                "text": "Pydantic 模型字段没有默认值时是必填字段；设置默认值后字段可省略。将字段默认值设置为 `None` 可以表达可选字段。FastAPI 会把请求 JSON 映射到模型字段，并在 OpenAPI schema 和交互式文档中展示模型结构。",
+                "score": 14.628992080688477,
+                "rerank_score": 14.628992080688477
+              },
+              {
+                "label": "E2",
+                "evidence_id": "query-parameters#默认值与可选参数",
+                "source_title": "Query Parameters",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/query-params/",
+                "section_title": "默认值与可选参数",
+                "text": "查询参数可以设置默认值，因此可以不出现在请求 URL 中。例如 `skip: int = 0` 和 `limit: int = 10` 在省略时分别使用 0 和 10。若 URL 只提供 `skip=20`，未提供的 `limit` 仍使用默认值 10。将参数默认值设为 `None` 可使其可选。",
+                "score": 14.44619083404541,
+                "rerank_score": 14.44619083404541
+              },
+              {
+                "label": "E3",
+                "evidence_id": "query-parameters#必填查询参数",
+                "source_title": "Query Parameters",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/query-params/",
+                "section_title": "必填查询参数",
+                "text": "非路径参数若没有默认值就是必填查询参数；设置默认值（包括 `None`）则不是必填。函数签名中的类型和默认值共同决定 FastAPI 如何解析参数、是否允许省略以及如何验证输入。",
+                "score": 14.439451217651367,
+                "rerank_score": 14.439451217651367
+              }
+            ]
+          },
+          "tool_latency_ms": 1412.46
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 2165,
+        "output_tokens": 160,
+        "total_tokens": 2325
+      },
+      "latency_ms": 31568.09,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.6429,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "request-body#模型字段是否必填",
+        "request-body#使用-pydantic-声明请求体",
+        "query-parameters#默认值与可选参数"
+      ]
+    },
+    {
+      "id": "frozen-extra-rag-026",
+      "question": "无效 JSON 请求体被模型校验后，FastAPI 会返回什么信息？",
+      "task_type": "rag",
+      "status": "workflow_incomplete",
+      "expected_evidence": [
+        "request-body#请求体解析与校验"
+      ],
+      "expected_tools": [],
+      "expected_refusal": false,
+      "predicted_refusal": null,
+      "retrieval_called": true,
+      "retrieval_call_count": 2,
+      "retrieved_evidence_ids": [
+        "body-nested-models#列表字段",
+        "request-body#请求体解析与校验",
+        "response-status-code#常见状态码"
+      ],
+      "retrieval_hit": true,
+      "citation_check": null,
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": null,
+      "answer": "工具调用达到轮数上限，无法可靠回答。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "01a1a24bf5ef5903aa88ca421f0e1105",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "无效 JSON 请求体 模型校验 返回信息",
+            "top_k": 2
+          },
+          "model_round_latency_ms": 5588.74,
+          "result": {
+            "query": "无效 JSON 请求体 模型校验 返回信息",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "request-body#请求体解析与校验",
+                "source_title": "Request Body",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body/",
+                "section_title": "请求体解析与校验",
+                "text": "使用模型类型声明请求体后，FastAPI 会读取 JSON 请求体、在需要时转换类型、校验数据，并把解析后的模型对象交给函数。如果输入无效，会返回指出错误位置和内容的校验错误；模型类型还提供编辑器类型提示。",
+                "score": 11.217937469482422,
+                "rerank_score": 11.217937469482422
+              },
+              {
+                "label": "E2",
+                "evidence_id": "body-nested-models#列表字段",
+                "source_title": "Body Nested Models",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body-nested-models/",
+                "section_title": "列表字段",
+                "text": "Pydantic 模型字段可以声明为 `list[str]`、`set[str]` 等带元素类型的容器。FastAPI 会根据模型定义解析和校验请求体，并在 API 文档中展示字段类型。",
+                "score": 11.064605712890625,
+                "rerank_score": 11.064605712890625
+              }
+            ]
+          },
+          "tool_latency_ms": 1366.76
+        },
+        {
+          "round": 2,
+          "call_id": "01a1a24c107ee510447526512eb716f6",
+          "name": "search_fastapi_docs",
+          "arguments": {
+            "query": "JSON 解析错误 返回 422 状态码",
+            "top_k": 2
+          },
+          "model_round_latency_ms": 5394.74,
+          "result": {
+            "query": "JSON 解析错误 返回 422 状态码",
+            "results": [
+              {
+                "label": "E1",
+                "evidence_id": "response-status-code#常见状态码",
+                "source_title": "Response Status Code",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/response-status-code/",
+                "section_title": "常见状态码",
+                "text": "200 表示成功，也是常见默认状态码；201 表示已创建，常用于创建新记录；204 表示无内容，响应不应包含 body。400 到 499 表示客户端错误，例如 404 表示未找到；500 到 599 表示服务端错误。",
+                "score": 12.015434265136719,
+                "rerank_score": 12.015434265136719
+              },
+              {
+                "label": "E2",
+                "evidence_id": "request-body#请求体解析与校验",
+                "source_title": "Request Body",
+                "source_url": "https://fastapi.tiangolo.com/tutorial/body/",
+                "section_title": "请求体解析与校验",
+                "text": "使用模型类型声明请求体后，FastAPI 会读取 JSON 请求体、在需要时转换类型、校验数据，并把解析后的模型对象交给函数。如果输入无效，会返回指出错误位置和内容的校验错误；模型类型还提供编辑器类型提示。",
+                "score": 12.000903129577637,
+                "rerank_score": 12.000903129577637
+              }
+            ]
+          },
+          "tool_latency_ms": 1411.9
+        },
+        {
+          "round": 3,
+          "call_id": "01a1a24c2b7694bdd6b284027d06ac09",
+          "name": "structured_lookup",
+          "executed": false,
+          "error": "max_tool_rounds_exceeded:2",
+          "model_round_latency_ms": 4306.45
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 3551,
+        "output_tokens": 193,
+        "total_tokens": 3744
+      },
+      "latency_ms": 19395.71,
+      "error": "tool-call loop exceeded max_tool_rounds=2",
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "evidence_passed_lexical_gate",
+        "lexical_coverage": 0.5333,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "request-body#请求体解析与校验",
+        "body-nested-models#列表字段",
+        "response-model#返回模型的作用"
+      ]
+    },
+    {
+      "id": "frozen-extra-tool-01",
+      "question": "请调用 calculator 计算 -8 + 13，只返回数值。",
+      "task_type": "tool",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [
+        {
+          "name": "calculator",
+          "arguments": {
+            "expression": "-8 + 13"
+          }
+        }
+      ],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": false,
+      "retrieval_call_count": 0,
+      "retrieved_evidence_ids": [],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": true,
+      "code_block_check": null,
+      "answer": "5",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_3201b38a1267437497e73020",
+          "name": "calculator",
+          "arguments": {
+            "expression": "-8 + 13"
+          },
+          "model_round_latency_ms": 2955.81,
+          "result": {
+            "expression": "-8 + 13",
+            "value": 5
+          },
+          "tool_latency_ms": 0.09
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 1812,
+        "output_tokens": 56,
+        "total_tokens": 1868
+      },
+      "latency_ms": 4651.48,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-extra-multistep-01",
+      "question": "请先调用 date_conversion 查询 2026-10-26 的 weekday_number，再把这个数交给 calculator 乘以 7，并说明两个步骤的结果。",
+      "task_type": "multi_step",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [
+        {
+          "name": "date_conversion",
+          "arguments": {
+            "date": "2026-10-26",
+            "operation": "weekday"
+          }
+        },
+        {
+          "name": "calculator",
+          "arguments": {
+            "expression": "1 * 7"
+          }
+        }
+      ],
+      "expected_refusal": false,
+      "predicted_refusal": false,
+      "retrieval_called": false,
+      "retrieval_call_count": 0,
+      "retrieved_evidence_ids": [],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": true,
+      "code_block_check": null,
+      "answer": "第二步结果：1 乘以 7 等于 7。\n\n两个步骤的结果：\n1. 2026-10-26 的 weekday_number 是 1（星期一）\n2. 1 × 7 = 7",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "call_08b6b6eef73341ea9929807d",
+          "name": "date_conversion",
+          "arguments": {
+            "date": "2026-10-26",
+            "operation": "weekday"
+          },
+          "model_round_latency_ms": 4660.69,
+          "result": {
+            "date": "2026-10-26",
+            "operation": "weekday",
+            "weekday": "Monday",
+            "weekday_number": 1
+          },
+          "tool_latency_ms": 0.05
+        },
+        {
+          "round": 2,
+          "call_id": "call_662db24c99804d81956a74db",
+          "name": "calculator",
+          "arguments": {
+            "expression": "1 * 7"
+          },
+          "model_round_latency_ms": 5849.09,
+          "result": {
+            "expression": "1 * 7",
+            "value": 7
+          },
+          "tool_latency_ms": 0.07
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 3055,
+        "output_tokens": 217,
+        "total_tokens": 3272
+      },
+      "latency_ms": 14504.67,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    },
+    {
+      "id": "frozen-extra-insufficient-01",
+      "question": "当前冻结的 FastAPI 知识库是否说明了 Kubernetes 托管 FastAPI 的月度价格？",
+      "task_type": "insufficient_evidence",
+      "status": "gated_refusal",
+      "expected_evidence": [],
+      "expected_tools": [],
+      "expected_refusal": true,
+      "predicted_refusal": true,
+      "retrieval_called": false,
+      "retrieval_call_count": 0,
+      "retrieved_evidence_ids": [],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": false,
+        "reason": "gated_before_generation"
+      },
+      "citation_applicable": true,
+      "tool_sequence_match": null,
+      "code_block_check": null,
+      "answer": "证据不足，无法回答。",
+      "raw_answer": null,
+      "tool_calls": [],
+      "generation_usage": null,
+      "latency_ms": 1229.43,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": true,
+        "reason": "insufficient_question_term_support",
+        "lexical_coverage": 0.0,
+        "top_rerank_score": null
+      },
+      "preflight_evidence_ids": [
+        "first-steps#最小应用",
+        "background-tasks#返回后执行任务",
+        "dependencies#依赖注入的作用"
+      ]
+    },
+    {
+      "id": "frozen-extra-tool-failure-01",
+      "question": "请调用 calculator 执行 2 ** 101；如果失败请说明原因，不要编造结果。",
+      "task_type": "tool_failure",
+      "status": "completed",
+      "expected_evidence": [],
+      "expected_tools": [
+        {
+          "name": "calculator",
+          "arguments": {
+            "expression": "2 ** 101"
+          }
+        }
+      ],
+      "expected_refusal": true,
+      "predicted_refusal": true,
+      "retrieval_called": false,
+      "retrieval_call_count": 0,
+      "retrieved_evidence_ids": [],
+      "retrieval_hit": false,
+      "citation_check": {
+        "supported": null,
+        "reason": "not_applicable_to_task_type"
+      },
+      "citation_applicable": false,
+      "tool_sequence_match": true,
+      "code_block_check": null,
+      "answer": "计算失败，原因是 calculator 工具的指数运算限制在 100 以内，而 2 ** 101 的指数 101 超过了这个限制。",
+      "raw_answer": null,
+      "tool_calls": [
+        {
+          "round": 1,
+          "call_id": "01a1a24c8dc885bdf4f327ca8b7318d0",
+          "name": "calculator",
+          "arguments": {
+            "expression": "2 ** 101"
+          },
+          "model_round_latency_ms": 4791.91,
+          "error": "calculator exponent is limited to 100",
+          "tool_latency_ms": 0.09
+        }
+      ],
+      "generation_usage": {
+        "input_tokens": 1865,
+        "output_tokens": 88,
+        "total_tokens": 1953
+      },
+      "latency_ms": 8514.21,
+      "error": null,
+      "evidence_gate": {
+        "should_refuse": false,
+        "reason": "not_applicable_to_task_type",
+        "lexical_coverage": null
+      },
+      "preflight_evidence_ids": []
+    }
+  ]
+}
